@@ -2,4 +2,4 @@
 export { PrismaModule } from './prisma.module';
 
 // Services
-export { StoriesService } from './services/stories';
+export { PrismaService } from './services/prisma';
