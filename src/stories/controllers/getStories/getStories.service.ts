@@ -6,7 +6,7 @@ import { GetStoriesParams } from './getStories.types';
 export class GetStoriesService {
   public constructor(private prisma: PrismaService) {}
 
-  public async getStories({ firebaseUserId }: GetStoriesParams) {
+  public async getStories({ firebaseUserId, skip, take }: GetStoriesParams) {
     const total = await this.prisma.story.count({
       where: {
         firebaseUserId: {
@@ -16,6 +16,8 @@ export class GetStoriesService {
     });
 
     const data = await this.prisma.story.findMany({
+      skip,
+      take,
       where: {
         firebaseUserId: {
           equals: firebaseUserId,
