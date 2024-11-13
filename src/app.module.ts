@@ -1,10 +1,16 @@
+import { resolve } from 'path';
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { FirebaseModule } from '@services/firebase';
 import { StoriesModule } from './stories';
 
+const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
+
 @Module({
-  imports: [FirebaseModule, StoriesModule],
-  providers: [AppService],
+  imports: [
+    FirebaseModule.forRoot({
+      serviceAccount,
+    }),
+    StoriesModule,
+  ],
 })
 export class AppModule {}

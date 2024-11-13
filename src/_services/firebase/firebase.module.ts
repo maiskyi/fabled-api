@@ -6,6 +6,7 @@ import { AuthService } from './services/auth';
 
 @Module({
   providers: [AuthService],
+  exports: [AuthService],
 })
 export class FirebaseModule {
   static forRoot({ serviceAccount }: FirebaseConfig): DynamicModule {
