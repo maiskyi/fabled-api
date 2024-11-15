@@ -1,7 +1,8 @@
 import { DynamicModule, Module } from '@nestjs/common';
+import { initializeApp, cert } from 'firebase-admin/app';
+
 import { FIREBASE_APP } from './firebase.const';
 import { FirebaseConfig } from './firebase.types';
-import { initializeApp, cert } from 'firebase-admin/app';
 import { AuthService } from './services/auth';
 
 @Module({

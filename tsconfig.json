@@ -22,6 +22,5 @@
       "@core/*": ["./src/_core/*"],
       "@common/*": ["./src/_common/*"]
     }
-  },
-  "include": ["./src/**/*"]
+  }
 }

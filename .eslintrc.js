@@ -27,7 +27,6 @@ module.exports = {
         groups: [
           'builtin',
           'external',
-
           'parent',
           'index',
           'sibling',
@@ -36,21 +35,21 @@ module.exports = {
           'internal',
         ],
         'newlines-between': 'always',
-        pathGroups: [
-          {
-            group: 'builtin',
-            pattern:
-              '{qs,axios,use-context-selector,classnames,i18next,lodash,react,react-*,react-dom/*, */react-*}',
-            patternOptions: { partial: true },
-            position: 'before',
-          },
-          {
-            group: 'internal',
-            pattern: '*.{css,sass,less,scss,pcss,styl}',
-            patternOptions: { matchBase: true },
-            position: 'before',
-          },
-        ],
+        // pathGroups: [
+        //   {
+        //     group: 'builtin',
+        //     pattern:
+        //       '{qs,axios,use-context-selector,classnames,i18next,lodash,react,react-*,react-dom/*, */react-*}',
+        //     patternOptions: { partial: true },
+        //     position: 'before',
+        //   },
+        //   {
+        //     group: 'internal',
+        //     pattern: '*.{css,sass,less,scss,pcss,styl}',
+        //     patternOptions: { matchBase: true },
+        //     position: 'before',
+        //   },
+        // ],
         pathGroupsExcludedImportTypes: ['react'],
         warnOnUnassignedImports: true,
       },
