@@ -18,6 +18,9 @@ export class GetStoriesService {
         firebaseUserId: {
           equals: firebaseUserId,
         },
+        status: {
+          equals: status,
+        },
       },
     });
 
