@@ -1,8 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Query } from '@nestjs/common';
+import {
+  ApiOkResponse,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Bootstrap } from '@common/dto';
+import { ImageTransformationQuery } from '@common/dto';
 
 import { GetBootstrapService } from './getBootstrap.service';
+import { BootstrapQuery } from './getBootstrap.dto';
 
 @ApiTags('Bootstrap')
 @Controller('bootstrap')
@@ -16,7 +23,19 @@ export class GetBootstrapController {
   @ApiOkResponse({
     type: Bootstrap,
   })
-  public getBootstrap(): Promise<Bootstrap> {
-    return this.bootstrap.getData();
+  @ApiQuery({
+    name: 'image',
+    type: ImageTransformationQuery,
+    required: false,
+  })
+  public async getBootstrap(
+    @Query() query: BootstrapQuery,
+  ): Promise<Bootstrap> {
+    const { image } = query;
+
+    const { characters, placeOfEvents, ...rest } =
+      await this.bootstrap.getData();
+
+    return { ...rest };
   }
 }
