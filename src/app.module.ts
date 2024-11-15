@@ -15,8 +15,8 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     FirebaseModule.forRoot({
       serviceAccount,
     }),
-    StoriesModule,
     HealthCheckModule,
+    StoriesModule,
   ],
 })
 export class AppModule {}
