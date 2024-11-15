@@ -68,7 +68,7 @@ export class GetStoriesController {
 
     const data = records.map(({ image, ...rest }) => ({
       ...rest,
-      image: { id: get(image, 'id') },
+      image: { publicId: get(image, ['_meta', 'public_id']) },
     }));
 
     return { data, total };

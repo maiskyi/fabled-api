@@ -30,6 +30,9 @@ export class GetStoriesService {
         readTime: true,
         image: true,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
       where: {
         firebaseUserId: {
           equals: firebaseUserId,
