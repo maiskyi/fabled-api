@@ -1,0 +1,15 @@
+export enum ImageTransformationCrop {
+  Scale = 'scale',
+  Fit = 'fit',
+  Limit = 'limit',
+  Mfit = 'mfit',
+  Fill = 'fill',
+  Lfill = 'lfill',
+  Pad = 'pad',
+  Lpad = 'lpad',
+  Mpad = 'mpad',
+  Crop = 'crop',
+  Thumb = 'thumb',
+  ImaggaCrop = 'imagga_crop',
+  ImaggaScale = 'imagga_scale',
+}
