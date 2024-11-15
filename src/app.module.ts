@@ -6,6 +6,7 @@ import { PrismaModule } from '@core/prisma';
 
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
+import { BootstrapModule } from './bootstarp';
 
 const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
 
@@ -15,6 +16,7 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     FirebaseModule.forRoot({
       serviceAccount,
     }),
+    BootstrapModule,
     HealthCheckModule,
     StoriesModule,
   ],
