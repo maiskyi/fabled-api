@@ -15,7 +15,6 @@ export class GetBootstrapService {
       select: {
         id: true,
         title: true,
-        description: true,
         image: true,
       },
       orderBy: {

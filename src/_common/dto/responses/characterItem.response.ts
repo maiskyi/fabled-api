@@ -14,10 +14,5 @@ export class CharacterItem {
   @ApiProperty({
     type: String,
   })
-  description: string;
-
-  @ApiProperty({
-    type: String,
-  })
   image: string;
 }

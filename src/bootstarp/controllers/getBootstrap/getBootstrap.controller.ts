@@ -7,6 +7,8 @@ import {
 } from '@nestjs/swagger';
 import { Bootstrap } from '@common/dto';
 import { ImageTransformationQuery } from '@common/dto';
+import { CloudinaryService } from '@services/cloudinary';
+import { get } from 'lodash';
 
 import { GetBootstrapService } from './getBootstrap.service';
 import { BootstrapQuery } from './getBootstrap.dto';
@@ -14,7 +16,11 @@ import { BootstrapQuery } from './getBootstrap.dto';
 @ApiTags('Bootstrap')
 @Controller('bootstrap')
 export class GetBootstrapController {
-  public constructor(private bootstrap: GetBootstrapService) {}
+  public constructor(
+    private bootstrap: GetBootstrapService,
+    private cloudinary: CloudinaryService,
+  ) {}
+
   @Get()
   @ApiOperation({
     operationId: 'getBootstrap',
@@ -31,7 +37,7 @@ export class GetBootstrapController {
   public async getBootstrap(
     @Query() query: BootstrapQuery,
   ): Promise<Bootstrap> {
-    const { image } = query;
+    const { image: transformation } = query;
 
     const {
       characters: initialCharacters,
@@ -41,12 +47,18 @@ export class GetBootstrapController {
 
     const characters = initialCharacters.map(({ image, ...rest }) => ({
       ...rest,
-      image: '',
+      image: this.cloudinary.image(
+        get(image, ['_meta', 'public_id']),
+        transformation,
+      ),
     }));
 
     const placeOfEvents = initialPlaceOfEvents.map(({ image, ...rest }) => ({
       ...rest,
-      image: '',
+      image: this.cloudinary.image(
+        get(image, ['_meta', 'public_id']),
+        transformation,
+      ),
     }));
 
     return { ...rest, characters, placeOfEvents };
