@@ -5,6 +5,7 @@ import { Config } from '../config.dto';
 import { PromptItem } from '../promptItem.dto';
 
 import { CharacterItem } from './characterItem.response';
+import { PlaceOfEventItem } from './placeOfEventItem.response';
 
 export class Bootstrap {
   @ApiProperty({
@@ -16,6 +17,11 @@ export class Bootstrap {
     type: [CharacterItem],
   })
   characters: CharacterItem[];
+
+  @ApiProperty({
+    type: [PlaceOfEventItem],
+  })
+  placeOfEvents: PlaceOfEventItem[];
 
   @ApiProperty({
     type: [PromptItem],

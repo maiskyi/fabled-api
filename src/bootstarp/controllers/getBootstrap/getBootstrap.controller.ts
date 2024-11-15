@@ -33,9 +33,22 @@ export class GetBootstrapController {
   ): Promise<Bootstrap> {
     const { image } = query;
 
-    const { characters, placeOfEvents, ...rest } =
-      await this.bootstrap.getData();
+    const {
+      characters: initialCharacters,
+      placeOfEvents: initialPlaceOfEvents,
+      ...rest
+    } = await this.bootstrap.getData();
 
-    return { ...rest };
+    const characters = initialCharacters.map(({ image, ...rest }) => ({
+      ...rest,
+      image: '',
+    }));
+
+    const placeOfEvents = initialPlaceOfEvents.map(({ image, ...rest }) => ({
+      ...rest,
+      image: '',
+    }));
+
+    return { ...rest, characters, placeOfEvents };
   }
 }

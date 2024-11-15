@@ -16,6 +16,7 @@ export class GetBootstrapService {
         id: true,
         title: true,
         description: true,
+        image: true,
       },
       orderBy: {
         createdAt: 'desc',
@@ -31,6 +32,7 @@ export class GetBootstrapService {
       select: {
         id: true,
         title: true,
+        image: true,
       },
       orderBy: {
         createdAt: 'desc',
