@@ -28,6 +28,7 @@ export class GetStoriesService {
         id: true,
         title: true,
         readTime: true,
+        image: true,
       },
       where: {
         firebaseUserId: {

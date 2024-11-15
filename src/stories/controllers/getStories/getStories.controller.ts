@@ -1,4 +1,12 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { get } from 'lodash';
+
+import {
+  Controller,
+  Get,
+  ParseIntPipe,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -9,8 +17,9 @@ import {
 import { AuthGuard, User, UserInfo } from '@services/firebase';
 import { StoryStatusType } from '@prisma/client';
 
+import { Stories } from '../../dto';
+
 import { GetStoriesService } from './getStories.service';
-import { Stories } from './getStories.dto';
 
 @ApiTags('Stories')
 @Controller('stories')
@@ -44,17 +53,24 @@ export class GetStoriesController {
   })
   public async getStories(
     @User() user: UserInfo,
-    @Query('skip') skip: number = 0,
-    @Query('take') take: number = 25,
+    @Query('skip', ParseIntPipe) skip: number = 0,
+    @Query('take', ParseIntPipe) take: number = 25,
     @Query('status') status: StoryStatusType = StoryStatusType.success,
   ): Promise<Stories> {
     const { uid: firebaseUserId } = user;
 
-    return this.stories.getStories({
+    const { data: records, total } = await this.stories.getStories({
       status,
       skip,
       take,
       firebaseUserId,
     });
+
+    const data = records.map(({ image, ...rest }) => ({
+      ...rest,
+      image: { id: get(image, 'id') },
+    }));
+
+    return { data, total };
   }
 }
