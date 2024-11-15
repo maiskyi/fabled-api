@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Bootstrap } from '@common/dto';
 
 import { GetBootstrapService } from './getBootstrap.service';
 
@@ -12,7 +13,10 @@ export class GetBootstrapController {
     operationId: 'getBootstrap',
     summary: 'Get app bootstrap data',
   })
-  public getBootstrap() {
+  @ApiOkResponse({
+    type: Bootstrap,
+  })
+  public getBootstrap(): Promise<Bootstrap> {
     return this.bootstrap.getData();
   }
 }

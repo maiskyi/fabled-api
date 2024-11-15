@@ -19,7 +19,8 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@services/*": ["./src/_services/*"],
-      "@core/*": ["./src/_core/*"]
+      "@core/*": ["./src/_core/*"],
+      "@common/*": ["./src/_common/*"]
     }
   },
   "include": ["./src/**/*"]
