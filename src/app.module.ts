@@ -27,6 +27,7 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
       apiKey: process.env.REVENUECAT_API_KEY,
       baseURL: process.env.REVENUECAT_API_HOST,
       projectId: process.env.REVENUECAT_PROJECT_ID,
+      environment: process.env.ENVIRONMENT,
     }),
     BootstrapModule,
     HealthCheckModule,

@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
+import { get } from 'lodash';
 
 import { CustomerService } from '../../services/customer';
 import { ConfigService } from '../../services/config';
@@ -20,10 +21,14 @@ export class HasActiveSubscription implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const customerId = this.extractCustomerIdFromHeader(request);
 
-    if (!customerId) {
+    if (!customerId && this.config.environment === 'production') {
       throw new UnprocessableEntityException(
         'Rc customer id is required to process this request.',
       );
+    }
+
+    if (!customerId && this.config.environment !== 'production') {
+      return false;
     }
 
     try {
@@ -41,7 +46,6 @@ export class HasActiveSubscription implements CanActivate {
   }
 
   private extractCustomerIdFromHeader(request: any): string | null {
-    const userId = request.headers['rc-user-id'];
-    return userId || null;
+    return get(request, ['headers', 'rc-user-id'], null);
   }
 }

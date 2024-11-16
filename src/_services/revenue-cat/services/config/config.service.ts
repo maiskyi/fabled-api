@@ -17,4 +17,8 @@ export class ConfigService implements RevenueCatConfig {
   public get projectId() {
     return this.config.projectId;
   }
+
+  public get environment() {
+    return this.config.environment;
+  }
 }

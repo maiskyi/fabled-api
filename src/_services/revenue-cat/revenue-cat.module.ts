@@ -19,6 +19,7 @@ export class RevenueCatModule {
           useValue: new ConfigService(config),
         },
       ],
+      exports: [CustomerService, ConfigService],
     };
   }
 }
