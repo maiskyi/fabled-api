@@ -1,37 +1,11 @@
-import {
-  IsOptional,
-  IsInt,
-  Min,
-  IsEnum,
-  IsObject,
-  ValidateNested,
-} from 'class-validator';
-import { Transform, Type } from 'class-transformer';
+import { IsOptional, IsEnum, IsObject, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 import { StoryStatusType } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 import { ImageTransformationQuery } from '@common/dto';
+import { PaginatedQuery } from '@common/dto';
 
-export class GetStoriesQuery {
-  @ApiProperty({
-    type: Number,
-    required: false,
-  })
-  @IsOptional()
-  @Transform(({ value }) => parseInt(value, 10))
-  @IsInt({ message: 'Validation failed (numeric string is expected)' })
-  @Min(0)
-  public readonly skip?: number;
-
-  @ApiProperty({
-    type: Number,
-    required: false,
-  })
-  @IsOptional()
-  @Transform(({ value }) => parseInt(value, 10))
-  @IsInt({ message: 'Validation failed (numeric string is expected)' })
-  @Min(0)
-  public readonly take?: number;
-
+export class GetStoriesQuery extends PaginatedQuery {
   @ApiProperty({
     required: false,
     enum: StoryStatusType,
