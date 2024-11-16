@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { Entitlement } from '../../__generated__/Entitlement';
+import { Customer } from '../../__generated__/Customer';
 import { HttpClientService } from '../http-client';
 
 @Injectable()
-export class EntitlementService extends Entitlement {
+export class CustomerService extends Customer {
   public constructor(client: HttpClientService) {
     super(client);
   }

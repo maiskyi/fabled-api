@@ -2,11 +2,11 @@ import { DynamicModule, Module } from '@nestjs/common';
 
 import { RevenueCatConfig } from './revenue-cat.types';
 import { ConfigService } from './services/config';
-import { EntitlementService } from './services/entitlement';
+import { CustomerService } from './services/customer';
 import { HttpClientService } from './services/http-client';
 
 @Module({
-  providers: [EntitlementService, HttpClientService],
+  providers: [CustomerService, HttpClientService],
 })
 export class RevenueCatModule {
   public static forRoot(config: RevenueCatConfig): DynamicModule {

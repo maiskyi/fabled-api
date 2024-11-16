@@ -1,2 +1,5 @@
 // Module
-export { RevenueCatModule } from './revenue-cat.module';
+export * from './revenue-cat.module';
+
+// Guards
+export * from './guards/has-active-subscription';
