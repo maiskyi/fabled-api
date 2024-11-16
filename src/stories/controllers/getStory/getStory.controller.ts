@@ -1,6 +1,5 @@
 import { get } from 'lodash';
-
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -9,15 +8,19 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard, User, UserInfo } from '@services/firebase';
-
-import { Story } from '../../dto';
+import { Story } from '@common/dto';
+import { CloudinaryService } from '@services/cloudinary';
 
 import { GetStoryService } from './getStory.service';
+import { GetStoryQuery } from './getStory.dto';
 
 @ApiTags('Stories')
 @Controller('stories')
 export class GetStoryController {
-  public constructor(private story: GetStoryService) {}
+  public constructor(
+    private story: GetStoryService,
+    private cloudinary: CloudinaryService,
+  ) {}
 
   @Get(':id')
   @ApiBearerAuth()
@@ -36,7 +39,10 @@ export class GetStoryController {
   public async getStory(
     @User() user: UserInfo,
     @Param('id') id: string,
+    @Query() query: GetStoryQuery,
   ): Promise<Story> {
+    const { image: transformation } = query;
+
     const { uid: firebaseUserId } = user;
 
     const { image, ...rest } = await this.story.getStory({
@@ -44,6 +50,12 @@ export class GetStoryController {
       id,
     });
 
-    return { ...rest, image: { publicId: get(image, ['_meta', 'public_id']) } };
+    return {
+      ...rest,
+      image: this.cloudinary.image(
+        get(image, ['_meta', 'public_id']),
+        transformation,
+      ),
+    };
   }
 }

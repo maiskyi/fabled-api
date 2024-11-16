@@ -7,12 +7,13 @@ import { ImageTransformation } from '../../types';
 export class CloudinaryService {
   public image(
     publicId: string,
-    { width, height, crop }: ImageTransformation = {},
+    { width, height, crop, aspectRatio }: ImageTransformation = {},
   ): string {
     return v2.url(publicId, {
       width,
       height,
       crop,
+      aspect_ratio: aspectRatio,
     });
   }
 }

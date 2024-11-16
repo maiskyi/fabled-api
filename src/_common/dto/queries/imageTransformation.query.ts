@@ -4,6 +4,7 @@ import { IsEnum, IsInt, IsOptional, Min } from 'class-validator';
 import {
   ImageTransformation,
   ImageTransformationCrop,
+  ImageTransformationAspectRation,
 } from '@services/cloudinary';
 
 export class ImageTransformationQuery implements ImageTransformation {
@@ -36,4 +37,12 @@ export class ImageTransformationQuery implements ImageTransformation {
   @IsOptional()
   @IsEnum(ImageTransformationCrop)
   public readonly crop?: ImageTransformationCrop;
+
+  @ApiProperty({
+    required: false,
+    enum: ImageTransformationAspectRation,
+  })
+  @IsOptional()
+  @IsEnum(ImageTransformationAspectRation)
+  public readonly aspectRatio: ImageTransformationAspectRation;
 }
