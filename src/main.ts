@@ -19,18 +19,20 @@ async function bootstrap() {
     }),
   );
 
-  const config = new DocumentBuilder()
-    .setTitle('Fabled API')
-    .setDescription('Fabled API Documentation')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
+  if (process.env.ENVIRONMENT !== 'production') {
+    const config = new DocumentBuilder()
+      .setTitle('Fabled API')
+      .setDescription('Fabled API Documentation')
+      .setVersion('1.0')
+      .addBearerAuth()
+      .build();
 
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
+    const documentFactory = () => SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('/', app, documentFactory, {
-    jsonDocumentUrl: 'docs/swagger.json',
-  });
+    SwaggerModule.setup('/', app, documentFactory, {
+      jsonDocumentUrl: 'docs/swagger.json',
+    });
+  }
 
   await app.listen(process.env.PORT);
 }
