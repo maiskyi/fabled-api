@@ -1,22 +1,23 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios';
 
 import { RevenueCatConfig } from './revenue-cat.types';
+import { ConfigService } from './services/config';
+import { EntitlementService } from './services/entitlement';
+import { HttpClientService } from './services/http-client';
 
-@Module({})
+@Module({
+  providers: [EntitlementService, HttpClientService],
+})
 export class RevenueCatModule {
-  public static forRoot({ apiKey, baseURL }: RevenueCatConfig): DynamicModule {
+  public static forRoot(config: RevenueCatConfig): DynamicModule {
     return {
       module: RevenueCatModule,
       global: true,
-      imports: [
-        HttpModule.register({
-          baseURL,
-          timeout: 5000,
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }),
+      providers: [
+        {
+          provide: ConfigService,
+          useValue: new ConfigService(config),
+        },
       ],
     };
   }

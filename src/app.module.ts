@@ -23,7 +23,11 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
       apiSecret: process.env.CLOUDINARY_API_SECRET,
       cloudName: process.env.CLOUDINARY_CLOUD_NAME,
     }),
-    RevenueCatModule,
+    RevenueCatModule.forRoot({
+      apiKey: process.env.REVENUECAT_API_KEY,
+      baseURL: process.env.REVENUECAT_API_HOST,
+      projectId: process.env.REVENUECAT_PROJECT_ID,
+    }),
     BootstrapModule,
     HealthCheckModule,
     StoriesModule,

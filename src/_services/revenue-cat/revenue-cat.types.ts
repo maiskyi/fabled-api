@@ -1,4 +1,5 @@
 export interface RevenueCatConfig {
-  apiKey: string;
-  baseURL: string;
+  readonly apiKey: string;
+  readonly baseURL: string;
+  readonly projectId: string;
 }

@@ -9,5 +9,6 @@ declare namespace NodeJS {
     PORT: string;
     REVENUECAT_API_HOST: string;
     REVENUECAT_API_KEY: string;
+    REVENUECAT_PROJECT_ID: string;
   }
 }
