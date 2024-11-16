@@ -13,13 +13,14 @@ import { ConfigService } from '../../services/config';
 @Injectable()
 export class HasActiveSubscription implements CanActivate {
   public constructor(
-    private entitlement: CustomerService,
+    private customer: CustomerService,
     private config: ConfigService,
   ) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const customerId = this.extractCustomerIdFromHeader(request);
+
+    const customerId = get(request, ['headers', 'rc-user-id'], null);
 
     if (!customerId && this.config.environment === 'production') {
       throw new UnprocessableEntityException(
@@ -32,20 +33,15 @@ export class HasActiveSubscription implements CanActivate {
     }
 
     try {
-      const { items } = await this.entitlement.listSubscriptions({
+      const { items: subscriptions } = await this.customer.listSubscriptions({
         customerId,
+        limit: 100,
         projectId: this.config.projectId,
       });
 
-      console.log(items);
-
-      return true;
+      return subscriptions.some(({ status }) => status === 'active');
     } catch (error) {
       throw new UnauthorizedException(error);
     }
-  }
-
-  private extractCustomerIdFromHeader(request: any): string | null {
-    return get(request, ['headers', 'rc-user-id'], null);
   }
 }
