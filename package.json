@@ -8,6 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "gen:ks": "graphql-codegen --config ./graphql.codegen.ts",
     "gen:prisma": "prisma generate",
     "gen:rc": "node ./rc.config.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
@@ -16,6 +17,7 @@
     "start": "node dist/main"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.10",
     "@nest-lab/or-guard": "^2.4.1",
     "@nestjs/axios": "^3.1.2",
     "@nestjs/common": "^10.0.0",
@@ -28,12 +30,16 @@
     "class-validator": "^0.14.1",
     "cloudinary": "^2.5.1",
     "firebase-admin": "^13.0.0",
+    "graphql": "^16.9.0",
     "lodash": "^4.17.21",
     "micromustache": "^8.0.3",
+    "react": "^18.3.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/typescript-document-nodes": "^4.0.11",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",

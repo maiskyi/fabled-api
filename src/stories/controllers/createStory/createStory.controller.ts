@@ -13,15 +13,15 @@ import { AuthGuard, User, UserInfo } from '@services/firebase';
 import { OrGuard } from '@common/guards';
 import { HasActiveSubscription } from '@services/revenue-cat';
 import { HttpExceptionResponse } from '@common/dto';
+import { StoryService } from '@services/keystone';
 
 import { CreateStoryGuard } from './createStory.guard';
 import { CreateStoryRequest, CreateStoryResponse } from './createStory.dto';
-import { CreateStoryService } from './createStory.service';
 
 @ApiTags('Stories')
 @Controller('stories')
 export class CreateStoryController {
-  public constructor(private service: CreateStoryService) {}
+  public constructor(private story: StoryService) {}
 
   @Post()
   @ApiBearerAuth()
@@ -56,7 +56,39 @@ export class CreateStoryController {
   ): Promise<CreateStoryResponse> {
     const { uid: firebaseUserId } = user;
 
-    const { id } = await this.service.createStory({ firebaseUserId, ...body });
+    const { characterId, moralLessonId, placeOfEventId, promptId, readTime } =
+      body;
+
+    const {
+      data: {
+        createStory: { id },
+      },
+    } = await this.story.create({
+      data: {
+        character: {
+          connect: {
+            id: characterId,
+          },
+        },
+        moralLesson: {
+          connect: {
+            id: moralLessonId,
+          },
+        },
+        placeOfEvent: {
+          connect: {
+            id: placeOfEventId,
+          },
+        },
+        prompt: {
+          connect: {
+            id: promptId,
+          },
+        },
+        readTime,
+        firebaseUserId,
+      },
+    });
 
     return { id };
   }

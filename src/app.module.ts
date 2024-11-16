@@ -5,6 +5,7 @@ import { FirebaseModule } from '@services/firebase';
 import { PrismaModule } from '@core/prisma';
 import { CloudinaryModule } from '@services/cloudinary';
 import { RevenueCatModule } from '@services/revenue-cat';
+import { KeystoneModule } from '@services/keystone';
 
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
@@ -28,6 +29,10 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
       baseURL: process.env.REVENUECAT_API_HOST,
       projectId: process.env.REVENUECAT_PROJECT_ID,
       environment: process.env.ENVIRONMENT,
+    }),
+    KeystoneModule.forRoot({
+      schemaUrl: process.env.KEYSTONE_API_HOST,
+      apiKey: process.env.KEYSTONE_API_KEY,
     }),
     BootstrapModule,
     HealthCheckModule,
