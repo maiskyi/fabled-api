@@ -8,6 +8,7 @@ import {
 import {
   CreateStoryController,
   CreateStoryGuard,
+  CreateStoryService,
 } from './controllers/createStory';
 import { GetStoryController, GetStoryService } from './controllers/getStory';
 
@@ -17,6 +18,7 @@ import { GetStoryController, GetStoryService } from './controllers/getStory';
     GetStoryService,
     HasActiveSubscription,
     CreateStoryGuard,
+    CreateStoryService,
   ],
   controllers: [
     GetStoriesController,
