@@ -5,4 +5,8 @@ export { CloudinaryModule } from './cloudinary.module';
 export { CloudinaryService } from './services/cloudinary';
 
 // Types
-export { ImageTransformation, ImageTransformationCrop } from './types';
+export {
+  ImageTransformation,
+  ImageTransformationCrop,
+  ImageTransformationAspectRation,
+} from './types';
