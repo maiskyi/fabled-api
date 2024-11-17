@@ -1,0 +1,1 @@
+export const APOLLO_CLIENT = 'APOLLO_CLIENT';
