@@ -19,4 +19,4 @@ automatic_scaling:
   max_instances: 1
 
 env_variables:
-  SERVER_CORS_ORIGINS: "https://app.fabled.space,capacitor://localhost"
+  CORS_ORIGINS: "https://app.fabled.space,capacitor://localhost"
