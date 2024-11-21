@@ -10,6 +10,7 @@ import { KeystoneModule } from '@services/keystone';
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
 import { BootstrapModule } from './bootstarp';
+import { SystemModule } from './system';
 
 const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
 
@@ -34,6 +35,7 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
       schemaUrl: process.env.KEYSTONE_API_HOST,
       apiKey: process.env.KEYSTONE_API_KEY,
     }),
+    SystemModule,
     BootstrapModule,
     HealthCheckModule,
     StoriesModule,
