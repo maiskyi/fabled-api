@@ -17,11 +17,15 @@ import { StoryService } from '@services/keystone';
 
 import { CreateStoryGuard } from './createStory.guard';
 import { CreateStoryRequest, CreateStoryResponse } from './createStory.dto';
+import { CreateStoryService } from './createStory.service';
 
 @ApiTags('Stories')
 @Controller('stories')
 export class CreateStoryController {
-  public constructor(private story: StoryService) {}
+  public constructor(
+    private story: StoryService,
+    private service: CreateStoryService,
+  ) {}
 
   @Post()
   @ApiBearerAuth()
@@ -56,38 +60,32 @@ export class CreateStoryController {
   ): Promise<CreateStoryResponse> {
     const { uid: firebaseUserId } = user;
 
-    const { characterId, moralLessonId, placeOfEventId, promptId, readTime } =
-      body;
+    const { userStoriesIds } = await this.service.getUserStoriesIds({
+      firebaseUserId,
+      ...body,
+    });
+
+    const { story } = await this.service.getExistingStory({
+      userStoriesIds,
+      ...body,
+    });
+
+    if (story) {
+      const { id } = await this.service.copyExistingStory({
+        firebaseUserId,
+        story,
+      });
+
+      return { id };
+    }
 
     const {
       data: {
         createStory: { id },
       },
     } = await this.story.create({
-      data: {
-        character: {
-          connect: {
-            id: characterId,
-          },
-        },
-        moralLesson: {
-          connect: {
-            id: moralLessonId,
-          },
-        },
-        placeOfEvent: {
-          connect: {
-            id: placeOfEventId,
-          },
-        },
-        prompt: {
-          connect: {
-            id: promptId,
-          },
-        },
-        readTime,
-        firebaseUserId,
-      },
+      firebaseUserId,
+      ...body,
     });
 
     return { id };
