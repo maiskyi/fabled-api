@@ -35,23 +35,15 @@ module.exports = {
           'internal',
         ],
         'newlines-between': 'always',
-        // pathGroups: [
-        //   {
-        //     group: 'builtin',
-        //     pattern:
-        //       '{qs,axios,use-context-selector,classnames,i18next,lodash,react,*,react-dom/*, *nest*}',
-        //     patternOptions: { partial: true },
-        //     position: 'before',
-        //   },
-        //   // {
-        //   //   group: 'internal',
-        //   //   pattern: '*.{css,sass,less,scss,pcss,styl}',
-        //   //   patternOptions: { matchBase: true },
-        //   //   position: 'before',
-        //   // },
-        // ],
-        // pathGroupsExcludedImportTypes: ['react'],
-        // warnOnUnassignedImports: true,
+      },
+    ],
+    '@typescript-eslint/no-unused-vars': [
+      'warn',
+      {
+        args: 'all',
+        argsIgnorePattern: '^_',
+        vars: 'all',
+        varsIgnorePattern: '^_',
       },
     ],
   },
