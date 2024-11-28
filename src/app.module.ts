@@ -41,6 +41,8 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     MailerModule.forRoot({
       email: process.env.GMAIL_EMAIL,
       password: process.env.GMAIL_PASSWORD,
+      from: process.env.MAILER_FROM,
+      to: process.env.MAILER_TO,
     }),
     // SystemModule,
     BootstrapModule,

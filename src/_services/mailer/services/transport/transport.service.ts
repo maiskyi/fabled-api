@@ -1,16 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { createTransport, Transporter } from 'nodemailer';
 
-import { MailerConfig } from './../../mailer.types';
+import { TransportConfig } from './transport.types';
 
 @Injectable()
 export class TransportService {
   public transporter: Transporter;
-  public recipient: string;
 
-  public constructor({ email, password }: MailerConfig) {
-    this.recipient = email;
-
+  public constructor({ email, password }: TransportConfig) {
     this.transporter = createTransport({
       service: 'Gmail',
       host: 'smtp.gmail.com',
