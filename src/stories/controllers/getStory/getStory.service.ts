@@ -15,6 +15,30 @@ export class GetStoryService {
         readTime: true,
         image: true,
         content: true,
+        message: true,
+        createdAt: true,
+        status: true,
+        statusLog: true,
+        character: {
+          select: {
+            id: true,
+          },
+        },
+        moralLesson: {
+          select: {
+            id: true,
+          },
+        },
+        placeOfEvent: {
+          select: {
+            id: true,
+          },
+        },
+        prompt: {
+          select: {
+            id: true,
+          },
+        },
       },
       where: {
         firebaseUserId: {

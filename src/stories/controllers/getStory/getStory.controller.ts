@@ -8,7 +8,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AuthGuard, User, UserInfo } from '@services/firebase';
-import { Story } from '@common/dto';
+import { Story, StoryStatusLog } from '@common/dto';
 import { CloudinaryService } from '@services/cloudinary';
 
 import { GetStoryService } from './getStory.service';
@@ -45,13 +45,14 @@ export class GetStoryController {
 
     const { uid: firebaseUserId } = user;
 
-    const { image, ...rest } = await this.story.getStory({
+    const { image, statusLog, ...rest } = await this.story.getStory({
       firebaseUserId,
       id,
     });
 
     return {
       ...rest,
+      statusLog: statusLog as StoryStatusLog[],
       image: this.cloudinary.image(
         get(image, ['_meta', 'public_id']),
         transformation,
