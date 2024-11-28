@@ -21,7 +21,6 @@ export class CreateInquiryService {
 
   public async sendMail({ email, subject, message }: SendMailParams) {
     const {} = await this.mailer.sendMail({
-      from: email,
       subject: `[Fabled][ContactUs] ${subject}`,
       text: `
         From: ${email}

@@ -1,5 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiInternalServerErrorResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+import { HttpExceptionResponse } from '@common/dto';
 
 import { CreateInquiryService } from './createInquiry.service';
 import {
@@ -16,6 +21,9 @@ export class CreateInquiryController {
   @ApiOperation({
     operationId: 'createInquiry',
     summary: 'Create inquiry',
+  })
+  @ApiInternalServerErrorResponse({
+    type: HttpExceptionResponse,
   })
   public async createInquiry(
     @Body() body: CreateInquiryRequest,

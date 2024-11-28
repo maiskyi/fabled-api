@@ -12,6 +12,7 @@ import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
 import { BootstrapModule } from './bootstarp';
 import { InquiriesModule } from './inquiries';
+import { FeedbacksModule } from './feedbacks';
 // import { SystemModule } from './system';
 
 const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
@@ -40,12 +41,15 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     MailerModule.forRoot({
       email: process.env.GMAIL_EMAIL,
       password: process.env.GMAIL_PASSWORD,
+      from: process.env.MAILER_FROM,
+      to: process.env.MAILER_TO,
     }),
     // SystemModule,
     BootstrapModule,
     HealthCheckModule,
     StoriesModule,
     InquiriesModule,
+    FeedbacksModule,
   ],
 })
 export class AppModule {}
