@@ -12,6 +12,7 @@ import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
 import { BootstrapModule } from './bootstarp';
 import { InquiriesModule } from './inquiries';
+import { FeedbacksModule } from './feedbacks';
 // import { SystemModule } from './system';
 
 const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
@@ -46,6 +47,7 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     HealthCheckModule,
     StoriesModule,
     InquiriesModule,
+    FeedbacksModule,
   ],
 })
 export class AppModule {}
