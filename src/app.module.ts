@@ -10,6 +10,7 @@ import { KeystoneModule } from '@services/keystone';
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
 import { BootstrapModule } from './bootstarp';
+import { InquiriesModule } from './inquiries';
 // import { SystemModule } from './system';
 
 const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
@@ -39,6 +40,7 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     BootstrapModule,
     HealthCheckModule,
     StoriesModule,
+    InquiriesModule,
   ],
 })
 export class AppModule {}
