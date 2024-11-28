@@ -20,7 +20,10 @@ export class CreateInquiryController {
   public async createInquiry(
     @Body() body: CreateInquiryRequest,
   ): Promise<CreateInquiryResponse> {
-    const { id } = await this.service.createInquiry(body);
+    const { id, ...rest } = await this.service.createInquiry(body);
+
+    this.service.sendMail(rest);
+
     return { id };
   }
 }

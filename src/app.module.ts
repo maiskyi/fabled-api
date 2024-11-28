@@ -6,6 +6,7 @@ import { PrismaModule } from '@core/prisma';
 import { CloudinaryModule } from '@services/cloudinary';
 import { RevenueCatModule } from '@services/revenue-cat';
 import { KeystoneModule } from '@services/keystone';
+import { MailerModule } from '@services/mailer';
 
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
@@ -35,6 +36,10 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     KeystoneModule.forRoot({
       schemaUrl: process.env.KEYSTONE_API_HOST,
       apiKey: process.env.KEYSTONE_API_KEY,
+    }),
+    MailerModule.forRoot({
+      email: process.env.GMAIL_EMAIL,
+      password: process.env.GMAIL_PASSWORD,
     }),
     // SystemModule,
     BootstrapModule,

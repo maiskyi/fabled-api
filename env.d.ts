@@ -12,5 +12,7 @@ declare namespace NodeJS {
     REVENUECAT_PROJECT_ID: string;
     KEYSTONE_API_HOST: string;
     KEYSTONE_API_KEY: string;
+    GMAIL_EMAIL: string;
+    GMAIL_PASSWORD: string;
   }
 }
