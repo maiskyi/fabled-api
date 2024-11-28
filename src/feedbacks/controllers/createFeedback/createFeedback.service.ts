@@ -21,7 +21,6 @@ export class CreateFeedbackService {
 
   public sendEmail({ email, comment, rating }: SendEmailParams) {
     return this.mailer.sendMail({
-      from: email,
       subject: `[Fabled][Feedback] ${email}`,
       text: `
         From: ${email}

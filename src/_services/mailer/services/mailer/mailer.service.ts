@@ -1,16 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { SendMailOptions, SentMessageInfo } from 'nodemailer';
+import { SentMessageInfo } from 'nodemailer';
 
 import { TransportService } from '../transport';
+import { ConfigService } from '../config';
+
+import { SendMailParams } from './mailer.types';
 
 @Injectable()
 export class MailerService {
-  public constructor(private transporter: TransportService) {}
+  public constructor(
+    private transporter: TransportService,
+    private config: ConfigService,
+  ) {}
 
-  public sendMail = (options: SendMailOptions): Promise<SentMessageInfo> => {
+  public sendMail = ({
+    subject,
+    text,
+  }: SendMailParams): Promise<SentMessageInfo> => {
     return this.transporter.transporter.sendMail({
-      ...options,
-      to: this.transporter.recipient,
+      subject,
+      text,
+      from: this.config.from,
+      to: this.config.to,
     });
   };
 }
