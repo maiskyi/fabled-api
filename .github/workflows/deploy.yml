@@ -49,7 +49,7 @@ jobs:
             CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             ENVIRONMENT=${{ vars.ENVIRONMENT }}
-            FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+            FIREBASE_SERVICE_ACCOUNT="${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
             GMAIL_EMAIL=${{ vars.GMAIL_EMAIL }}
             GMAIL_PASSWORD=${{ secrets.GMAIL_PASSWORD }}
             KEYSTONE_API_HOST=${{ vars.KEYSTONE_API_HOST }}
