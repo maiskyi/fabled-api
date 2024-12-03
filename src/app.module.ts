@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 import { Module } from '@nestjs/common';
 import { FirebaseModule } from '@services/firebase';
 import { PrismaModule } from '@core/prisma';
@@ -13,11 +15,13 @@ import { InquiriesModule } from './inquiries';
 import { FeedbacksModule } from './feedbacks';
 // import { SystemModule } from './system';
 
+const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
+
 @Module({
   imports: [
     PrismaModule,
     FirebaseModule.forRoot({
-      serviceAccount: process.env.FIREBASE_SERVICE_ACCOUNT,
+      serviceAccount,
     }),
     CloudinaryModule.forRoot({
       apiKey: process.env.CLOUDINARY_API_KEY,
