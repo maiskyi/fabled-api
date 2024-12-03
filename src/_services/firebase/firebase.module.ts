@@ -19,7 +19,7 @@ export class FirebaseModule {
           provide: FIREBASE_APP,
           useFactory: () => {
             return initializeApp({
-              credential: cert(serviceAccount),
+              credential: cert(JSON.parse(serviceAccount)),
             });
           },
         },

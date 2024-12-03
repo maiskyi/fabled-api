@@ -16,5 +16,6 @@ declare namespace NodeJS {
     REVENUECAT_API_HOST: string;
     REVENUECAT_API_KEY: string;
     REVENUECAT_PROJECT_ID: string;
+    FIREBASE_SERVICE_ACCOUNT: string;
   }
 }
