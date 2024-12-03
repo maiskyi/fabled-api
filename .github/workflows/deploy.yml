@@ -33,6 +33,12 @@ jobs:
       - name: Build application
         run: yarn build
 
+      - name: Create Firebase Service Account
+        uses: jsdaniell/create-json@v1.2.3
+        with:
+          name: "firebase-adminsdk.json"
+          json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
       - name: Auth to Google Cloud
         uses: google-github-actions/auth@v2
         with:
