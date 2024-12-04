@@ -13,7 +13,7 @@ import { HealthCheckModule } from './health-check';
 import { BootstrapModule } from './bootstarp';
 import { InquiriesModule } from './inquiries';
 import { FeedbacksModule } from './feedbacks';
-// import { SystemModule } from './system';
+import { SystemModule } from './system';
 
 const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
 
@@ -44,7 +44,7 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
       from: process.env.MAILER_FROM,
       to: process.env.MAILER_TO,
     }),
-    // SystemModule,
+    SystemModule,
     BootstrapModule,
     HealthCheckModule,
     StoriesModule,
