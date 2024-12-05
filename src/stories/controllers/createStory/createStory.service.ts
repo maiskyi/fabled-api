@@ -50,7 +50,12 @@ export class CreateStoryService {
     story,
     firebaseUserId,
   }: CopyExistingStoryParams) {
-    const { firebaseUserId: _, id: parentId, ...data } = story;
+    const {
+      firebaseUserId: _firebaseUserId,
+      id: parentId,
+      createdAt: _createdAt,
+      ...data
+    } = story;
 
     const { id } = await this.prisma.story.create({
       data: {
