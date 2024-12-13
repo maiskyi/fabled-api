@@ -22,16 +22,22 @@ export class GetStoryService {
         character: {
           select: {
             id: true,
+            title: true,
+            emoji: true,
           },
         },
         moralLesson: {
           select: {
             id: true,
+            title: true,
+            emoji: true,
           },
         },
         placeOfEvent: {
           select: {
             id: true,
+            title: true,
+            emoji: true,
           },
         },
         prompt: {

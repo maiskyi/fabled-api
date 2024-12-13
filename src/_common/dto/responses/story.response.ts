@@ -21,6 +21,16 @@ class StoryCharacter {
     type: String,
   })
   public readonly id: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  public readonly title: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  public readonly emoji: string;
 }
 
 class StoryMoralLesson {
@@ -28,6 +38,16 @@ class StoryMoralLesson {
     type: String,
   })
   public readonly id: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  public readonly title: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  public readonly emoji: string;
 }
 
 class StoryPlaceOfEvent {
@@ -35,6 +55,16 @@ class StoryPlaceOfEvent {
     type: String,
   })
   public readonly id: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  public readonly title: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  public readonly emoji: string;
 }
 
 class StoryPrompt {
