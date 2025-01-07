@@ -36,12 +36,12 @@ async function bootstrap() {
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('/', app, documentFactory, {
+  SwaggerModule.setup('/docs', app, documentFactory, {
     jsonDocumentUrl: 'docs/swagger.json',
   });
 
   if (process.env.ENVIRONMENT !== 'local') {
-    app.use('/', auth);
+    app.use('/docs', auth);
   }
 
   await app.listen(process.env.PORT);
