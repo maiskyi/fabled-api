@@ -66,6 +66,8 @@ jobs:
             REVENUECAT_PROJECT_ID=${{ secrets.REVENUECAT_PROJECT_ID }}
             KEYSTONE_API_HOST=${{ vars.KEYSTONE_API_HOST }}
             KEYSTONE_API_KEY=${{ secrets.KEYSTONE_API_KEY }}
+            SWAGGER_LOGIN=${{ secrets.SWAGGER_LOGIN }}
+            SWAGGER_PASSWORD=${{ secrets.SWAGGER_PASSWORD }}
 
       - name: Remove Cloud App Engine versions
         uses: Reviewable/appengine-remove-action@v2.1.2
