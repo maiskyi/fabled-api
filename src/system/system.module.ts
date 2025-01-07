@@ -1,16 +1,8 @@
 import { Module } from '@nestjs/common';
 
-// import { GetDatabaseUrlController } from './controllers/getDatabaseUrl';
-import {
-  GetAllPromptsController,
-  GetAllPromptsService,
-} from './controllers/getAllPrompts';
+import { GetDatabaseUrlController } from './controllers/getDatabaseUrl';
 
 @Module({
-  controllers: [
-    GetAllPromptsController,
-    // GetDatabaseUrlController
-  ],
-  providers: [GetAllPromptsService],
+  controllers: [GetDatabaseUrlController],
 })
 export class SystemModule {}

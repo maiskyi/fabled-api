@@ -1,14 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
+import { GetDatabaseUrlResponse } from './getDatabaseUrl.dto';
+
 @ApiTags('System')
 @Controller('system')
 export class GetDatabaseUrlController {
   @Get('database-url')
   @ApiOkResponse({
-    type: String,
+    type: GetDatabaseUrlResponse,
   })
-  public getDatabaseUrl() {
-    return process.env.DATABASE_URL;
+  public getDatabaseUrl(): GetDatabaseUrlResponse {
+    return { url: process.env.DATABASE_URL };
   }
 }

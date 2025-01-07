@@ -1,8 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import * as basicAuth from 'express-basic-auth';
 
 import { AppModule } from './app.module';
+
+const auth = basicAuth({
+  challenge: true,
+  users: {
+    [process.env.SWAGGER_LOGIN]: process.env.SWAGGER_PASSWORD,
+  },
+});
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,19 +27,21 @@ async function bootstrap() {
     }),
   );
 
-  if (process.env.ENVIRONMENT !== 'production') {
-    const config = new DocumentBuilder()
-      .setTitle('Fabled API')
-      .setDescription('Fabled API Documentation')
-      .setVersion('1.0')
-      .addBearerAuth()
-      .build();
+  const config = new DocumentBuilder()
+    .setTitle('Fabled API')
+    .setDescription('Fabled API Documentation')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
 
-    const documentFactory = () => SwaggerModule.createDocument(app, config);
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
 
-    SwaggerModule.setup('/', app, documentFactory, {
-      jsonDocumentUrl: 'docs/swagger.json',
-    });
+  SwaggerModule.setup('/', app, documentFactory, {
+    jsonDocumentUrl: 'docs/swagger.json',
+  });
+
+  if (process.env.ENVIRONMENT !== 'local') {
+    app.use('/', auth);
   }
 
   await app.listen(process.env.PORT);
