@@ -16,5 +16,7 @@ declare namespace NodeJS {
     REVENUECAT_API_HOST: string;
     REVENUECAT_API_KEY: string;
     REVENUECAT_PROJECT_ID: string;
+    SWAGGER_LOGIN: string;
+    SWAGGER_PASSWORD: string;
   }
 }
