@@ -5,4 +5,5 @@ export interface GetStoriesParams {
   skip: number;
   take: number;
   status: StoryStatusType;
+  deviceId?: string;
 }

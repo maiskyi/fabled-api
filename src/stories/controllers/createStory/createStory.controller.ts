@@ -14,6 +14,7 @@ import { OrGuard } from '@common/guards';
 import { HasActiveSubscription } from '@services/revenue-cat';
 import { HttpExceptionResponse } from '@common/dto';
 import { StoryService } from '@services/keystone';
+import { DeviceId } from '@services/keystone';
 
 import { CreateStoryGuard } from './createStory.guard';
 import { CreateStoryRequest, CreateStoryResponse } from './createStory.dto';
@@ -55,12 +56,14 @@ export class CreateStoryController {
     }),
   )
   public async createStory(
+    @DeviceId() deviceId: string,
     @User() user: UserInfo,
     @Body() body: CreateStoryRequest,
   ): Promise<CreateStoryResponse> {
     const { uid: firebaseUserId } = user;
 
     const { userStoriesIds } = await this.service.getUserStoriesIds({
+      deviceId,
       firebaseUserId,
       ...body,
     });
@@ -74,6 +77,7 @@ export class CreateStoryController {
       const { id } = await this.service.copyExistingStory({
         firebaseUserId,
         story,
+        deviceId,
       });
 
       return { id };
@@ -85,6 +89,7 @@ export class CreateStoryController {
       },
     } = await this.story.create({
       firebaseUserId,
+      deviceId,
       ...body,
     });
 

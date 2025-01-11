@@ -16,6 +16,7 @@ export interface GetUserStoriesIdsParams {
   readonly placeOfEventId?: string;
   readonly promptId?: string;
   readonly readTime?: number;
+  readonly deviceId?: string;
 }
 
 export interface GetExistingStoryParams {
@@ -30,4 +31,5 @@ export interface GetExistingStoryParams {
 export interface CopyExistingStoryParams {
   firebaseUserId: string;
   story: Story;
+  deviceId: string;
 }

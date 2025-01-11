@@ -11,10 +11,17 @@ import {
 export class CreateStoryService {
   public constructor(private prisma: PrismaService) {}
 
-  public async getUserStoriesIds(params: GetUserStoriesIdsParams) {
+  public async getUserStoriesIds({
+    firebaseUserId,
+    deviceId,
+    ...params
+  }: GetUserStoriesIdsParams) {
     const userStories = await this.prisma.story.findMany({
       where: {
-        ...params,
+        OR: [
+          { firebaseUserId, ...params },
+          { deviceId, ...params },
+        ],
       },
       select: {
         id: true,
@@ -48,6 +55,7 @@ export class CreateStoryService {
 
   public async copyExistingStory({
     story,
+    deviceId,
     firebaseUserId,
   }: CopyExistingStoryParams) {
     const {
@@ -60,6 +68,7 @@ export class CreateStoryService {
     const { id } = await this.prisma.story.create({
       data: {
         ...data,
+        deviceId,
         firebaseUserId,
         parentId,
       },

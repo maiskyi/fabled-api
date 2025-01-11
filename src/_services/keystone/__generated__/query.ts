@@ -42,6 +42,7 @@ export type Character = {
   __typename?: 'Character';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  emoji?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   image?: Maybe<CloudinaryImage_File>;
   isPublished?: Maybe<Scalars['Boolean']['output']>;
@@ -52,6 +53,7 @@ export type Character = {
 export type CharacterCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  emoji?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['Upload']['input']>;
   isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   language?: InputMaybe<CharacterLanguageType>;
@@ -97,6 +99,7 @@ export type CharacterUpdateArgs = {
 export type CharacterUpdateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  emoji?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['Upload']['input']>;
   isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   language?: InputMaybe<CharacterLanguageType>;
@@ -511,6 +514,7 @@ export type MoralLesson = {
   __typename?: 'MoralLesson';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  emoji?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   isPublished?: Maybe<Scalars['Boolean']['output']>;
   language?: Maybe<MoralLessonLanguageType>;
@@ -520,6 +524,7 @@ export type MoralLesson = {
 export type MoralLessonCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  emoji?: InputMaybe<Scalars['String']['input']>;
   isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   language?: InputMaybe<MoralLessonLanguageType>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -564,6 +569,7 @@ export type MoralLessonUpdateArgs = {
 export type MoralLessonUpdateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  emoji?: InputMaybe<Scalars['String']['input']>;
   isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   language?: InputMaybe<MoralLessonLanguageType>;
   title?: InputMaybe<Scalars['String']['input']>;
@@ -907,18 +913,22 @@ export type PasswordState = {
 export type PlaceOfEvent = {
   __typename?: 'PlaceOfEvent';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  emoji?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   image?: Maybe<CloudinaryImage_File>;
   isPublished?: Maybe<Scalars['Boolean']['output']>;
   language?: Maybe<PlaceOfEventLanguageType>;
+  prompt?: Maybe<Prompt>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
 export type PlaceOfEventCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  emoji?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['Upload']['input']>;
   isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   language?: InputMaybe<PlaceOfEventLanguageType>;
+  prompt?: InputMaybe<PromptRelateToOneForCreateInput>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -959,9 +969,11 @@ export type PlaceOfEventUpdateArgs = {
 
 export type PlaceOfEventUpdateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  emoji?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['Upload']['input']>;
   isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   language?: InputMaybe<PlaceOfEventLanguageType>;
+  prompt?: InputMaybe<PromptRelateToOneForUpdateInput>;
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -973,6 +985,7 @@ export type PlaceOfEventWhereInput = {
   id?: InputMaybe<IdFilter>;
   isPublished?: InputMaybe<BooleanFilter>;
   language?: InputMaybe<PlaceOfEventLanguageTypeNullableFilter>;
+  prompt?: InputMaybe<PromptWhereInput>;
   title?: InputMaybe<StringFilter>;
 };
 
@@ -985,6 +998,7 @@ export type Prompt = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['ID']['output'];
   imagePrompt?: Maybe<Scalars['String']['output']>;
+  isPublished?: Maybe<Scalars['Boolean']['output']>;
   language?: Maybe<PromptLanguageType>;
   message?: Maybe<Scalars['String']['output']>;
   textPrompt?: Maybe<Scalars['String']['output']>;
@@ -994,6 +1008,7 @@ export type Prompt = {
 export type PromptCreateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   imagePrompt?: InputMaybe<Scalars['String']['input']>;
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   language?: InputMaybe<PromptLanguageType>;
   message?: InputMaybe<Scalars['String']['input']>;
   textPrompt?: InputMaybe<Scalars['String']['input']>;
@@ -1015,6 +1030,7 @@ export type PromptOrderByInput = {
   createdAt?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
   imagePrompt?: InputMaybe<OrderDirection>;
+  isPublished?: InputMaybe<OrderDirection>;
   language?: InputMaybe<OrderDirection>;
   message?: InputMaybe<OrderDirection>;
   textPrompt?: InputMaybe<OrderDirection>;
@@ -1040,6 +1056,7 @@ export type PromptUpdateArgs = {
 export type PromptUpdateInput = {
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
   imagePrompt?: InputMaybe<Scalars['String']['input']>;
+  isPublished?: InputMaybe<Scalars['Boolean']['input']>;
   language?: InputMaybe<PromptLanguageType>;
   message?: InputMaybe<Scalars['String']['input']>;
   textPrompt?: InputMaybe<Scalars['String']['input']>;
@@ -1053,6 +1070,7 @@ export type PromptWhereInput = {
   createdAt?: InputMaybe<DateTimeNullableFilter>;
   id?: InputMaybe<IdFilter>;
   imagePrompt?: InputMaybe<StringFilter>;
+  isPublished?: InputMaybe<BooleanFilter>;
   language?: InputMaybe<PromptLanguageTypeNullableFilter>;
   message?: InputMaybe<StringFilter>;
   textPrompt?: InputMaybe<StringFilter>;
@@ -1251,12 +1269,14 @@ export type Story = {
   content?: Maybe<Scalars['String']['output']>;
   contentPrompt?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  deviceId?: Maybe<Scalars['String']['output']>;
   firebaseUserId?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   image?: Maybe<CloudinaryImage_File>;
   imagePrompt?: Maybe<Scalars['String']['output']>;
   message?: Maybe<Scalars['String']['output']>;
   moralLesson?: Maybe<MoralLesson>;
+  parent?: Maybe<Story>;
   placeOfEvent?: Maybe<PlaceOfEvent>;
   prompt?: Maybe<Prompt>;
   readTime?: Maybe<Scalars['Int']['output']>;
@@ -1270,11 +1290,13 @@ export type StoryCreateInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   contentPrompt?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  deviceId?: InputMaybe<Scalars['String']['input']>;
   firebaseUserId?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['Upload']['input']>;
   imagePrompt?: InputMaybe<Scalars['String']['input']>;
   message?: InputMaybe<Scalars['String']['input']>;
   moralLesson?: InputMaybe<MoralLessonRelateToOneForCreateInput>;
+  parent?: InputMaybe<StoryRelateToOneForCreateInput>;
   placeOfEvent?: InputMaybe<PlaceOfEventRelateToOneForCreateInput>;
   prompt?: InputMaybe<PromptRelateToOneForCreateInput>;
   readTime?: InputMaybe<Scalars['Int']['input']>;
@@ -1287,6 +1309,7 @@ export type StoryOrderByInput = {
   content?: InputMaybe<OrderDirection>;
   contentPrompt?: InputMaybe<OrderDirection>;
   createdAt?: InputMaybe<OrderDirection>;
+  deviceId?: InputMaybe<OrderDirection>;
   firebaseUserId?: InputMaybe<OrderDirection>;
   id?: InputMaybe<OrderDirection>;
   imagePrompt?: InputMaybe<OrderDirection>;
@@ -1294,6 +1317,17 @@ export type StoryOrderByInput = {
   readTime?: InputMaybe<OrderDirection>;
   status?: InputMaybe<OrderDirection>;
   title?: InputMaybe<OrderDirection>;
+};
+
+export type StoryRelateToOneForCreateInput = {
+  connect?: InputMaybe<StoryWhereUniqueInput>;
+  create?: InputMaybe<StoryCreateInput>;
+};
+
+export type StoryRelateToOneForUpdateInput = {
+  connect?: InputMaybe<StoryWhereUniqueInput>;
+  create?: InputMaybe<StoryCreateInput>;
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export enum StoryStatusLogType {
@@ -1334,11 +1368,13 @@ export type StoryUpdateInput = {
   content?: InputMaybe<Scalars['String']['input']>;
   contentPrompt?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  deviceId?: InputMaybe<Scalars['String']['input']>;
   firebaseUserId?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['Upload']['input']>;
   imagePrompt?: InputMaybe<Scalars['String']['input']>;
   message?: InputMaybe<Scalars['String']['input']>;
   moralLesson?: InputMaybe<MoralLessonRelateToOneForUpdateInput>;
+  parent?: InputMaybe<StoryRelateToOneForUpdateInput>;
   placeOfEvent?: InputMaybe<PlaceOfEventRelateToOneForUpdateInput>;
   prompt?: InputMaybe<PromptRelateToOneForUpdateInput>;
   readTime?: InputMaybe<Scalars['Int']['input']>;
@@ -1355,11 +1391,13 @@ export type StoryWhereInput = {
   content?: InputMaybe<StringFilter>;
   contentPrompt?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
+  deviceId?: InputMaybe<StringFilter>;
   firebaseUserId?: InputMaybe<StringFilter>;
   id?: InputMaybe<IdFilter>;
   imagePrompt?: InputMaybe<StringFilter>;
   message?: InputMaybe<StringFilter>;
   moralLesson?: InputMaybe<MoralLessonWhereInput>;
+  parent?: InputMaybe<StoryWhereInput>;
   placeOfEvent?: InputMaybe<PlaceOfEventWhereInput>;
   prompt?: InputMaybe<PromptWhereInput>;
   readTime?: InputMaybe<IntFilter>;
@@ -1384,15 +1422,6 @@ export type StringFilter = {
   not?: InputMaybe<NestedStringFilter>;
   notIn?: InputMaybe<Array<Scalars['String']['input']>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Subscription = {
-  __typename?: 'Subscription';
-  userStoriesCountUpdated?: Maybe<Scalars['Int']['output']>;
-};
-
-export type SubscriptionUserStoriesCountUpdatedArgs = {
-  id?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
