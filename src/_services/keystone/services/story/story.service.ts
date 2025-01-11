@@ -23,6 +23,7 @@ export class StoryService {
     placeOfEventId,
     promptId,
     readTime,
+    deviceId,
   }: CreateStoryParams) {
     return this.client.mutate<
       CreateStoryMutation,
@@ -30,6 +31,7 @@ export class StoryService {
     >({
       variables: {
         data: {
+          deviceId,
           character: {
             connect: {
               id: characterId,

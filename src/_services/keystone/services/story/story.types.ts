@@ -5,4 +5,5 @@ export interface CreateStoryParams {
   readonly promptId: string;
   readonly readTime: number;
   readonly firebaseUserId: string;
+  readonly deviceId: string;
 }

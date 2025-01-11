@@ -11,6 +11,7 @@ import { AuthGuard, User, UserInfo } from '@services/firebase';
 import { StoryStatusType } from '@prisma/client';
 import { ImageTransformationQuery, Stories } from '@common/dto';
 import { CloudinaryService } from '@services/cloudinary';
+import { DeviceId } from '@services/keystone';
 
 import { GetStoriesService } from './getStories.service';
 import { GetStoriesQuery } from './getStories.dto';
@@ -54,6 +55,7 @@ export class GetStoriesController {
     type: Stories,
   })
   public async getStories(
+    @DeviceId() deviceId: string,
     @User() user: UserInfo,
     @Query() query: GetStoriesQuery,
   ): Promise<Stories> {
@@ -71,6 +73,7 @@ export class GetStoriesController {
       skip,
       take,
       firebaseUserId,
+      deviceId,
     });
 
     const data = records.map(({ image, ...rest }) => ({

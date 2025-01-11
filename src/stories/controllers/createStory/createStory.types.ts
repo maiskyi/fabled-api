@@ -30,4 +30,5 @@ export interface GetExistingStoryParams {
 export interface CopyExistingStoryParams {
   firebaseUserId: string;
   story: Story;
+  deviceId: string;
 }

@@ -48,6 +48,7 @@ export class CreateStoryService {
 
   public async copyExistingStory({
     story,
+    deviceId,
     firebaseUserId,
   }: CopyExistingStoryParams) {
     const {
@@ -60,6 +61,7 @@ export class CreateStoryService {
     const { id } = await this.prisma.story.create({
       data: {
         ...data,
+        deviceId,
         firebaseUserId,
         parentId,
       },

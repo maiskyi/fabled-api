@@ -12,15 +12,29 @@ export class GetStoriesService {
     skip,
     take,
     status,
+    deviceId,
   }: GetStoriesParams) {
+    console.log(deviceId);
     const count = this.prisma.story.count({
       where: {
-        firebaseUserId: {
-          equals: firebaseUserId,
-        },
-        status: {
-          equals: status,
-        },
+        OR: [
+          {
+            firebaseUserId: {
+              equals: firebaseUserId,
+            },
+            status: {
+              equals: status,
+            },
+          },
+          {
+            deviceId: {
+              equals: deviceId,
+            },
+            status: {
+              equals: status,
+            },
+          },
+        ],
       },
     });
 
@@ -37,16 +51,30 @@ export class GetStoriesService {
         createdAt: 'desc',
       },
       where: {
-        firebaseUserId: {
-          equals: firebaseUserId,
-        },
-        status: {
-          equals: status,
-        },
+        OR: [
+          {
+            firebaseUserId: {
+              equals: firebaseUserId,
+            },
+            status: {
+              equals: status,
+            },
+          },
+          {
+            deviceId: {
+              equals: deviceId,
+            },
+            status: {
+              equals: status,
+            },
+          },
+        ],
       },
     });
 
     const [total, data] = await Promise.all([count, findMany]);
+
+    console.log(total, data);
 
     return { data, total };
   }
