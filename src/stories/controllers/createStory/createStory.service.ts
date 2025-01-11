@@ -11,10 +11,17 @@ import {
 export class CreateStoryService {
   public constructor(private prisma: PrismaService) {}
 
-  public async getUserStoriesIds(params: GetUserStoriesIdsParams) {
+  public async getUserStoriesIds({
+    firebaseUserId,
+    deviceId,
+    ...params
+  }: GetUserStoriesIdsParams) {
     const userStories = await this.prisma.story.findMany({
       where: {
-        ...params,
+        OR: [
+          { firebaseUserId, ...params },
+          { deviceId, ...params },
+        ],
       },
       select: {
         id: true,
