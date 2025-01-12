@@ -14,7 +14,6 @@ export class GetStoriesService {
     status,
     deviceId,
   }: GetStoriesParams) {
-    console.log(deviceId);
     const count = this.prisma.story.count({
       where: {
         OR: [
@@ -26,7 +25,7 @@ export class GetStoriesService {
               equals: status,
             },
           },
-          {
+          !!deviceId && {
             deviceId: {
               equals: deviceId,
             },
@@ -34,7 +33,7 @@ export class GetStoriesService {
               equals: status,
             },
           },
-        ],
+        ].filter((v) => !!v),
       },
     });
 

@@ -41,8 +41,8 @@ export class CreateFeedbackController {
     @Body() body: CreateFeedbackRequest,
     @User() user: UserInfo,
   ): Promise<CreateFeedbackResponse> {
-    const { rating, comment } = body;
-    const { email, uid: firebaseUserId } = user;
+    const { email: firebaseEmail, uid: firebaseUserId } = user;
+    const { rating, comment, email = firebaseEmail } = body;
 
     const { id } = await this.service.createFeedback({
       email,
