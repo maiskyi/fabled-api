@@ -73,8 +73,6 @@ export class GetStoriesService {
 
     const [total, data] = await Promise.all([count, findMany]);
 
-    console.log(total, data);
-
     return { data, total };
   }
 }

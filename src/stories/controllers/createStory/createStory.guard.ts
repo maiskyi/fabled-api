@@ -6,36 +6,46 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { PrismaService } from '@core/prisma';
-import { UserInfo } from 'firebase-admin/auth';
+import { get } from 'lodash';
 
 @Injectable()
 export class CreateStoryGuard implements CanActivate {
   public constructor(private prisma: PrismaService) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
-    const {
-      user: { uid },
-    } = context.switchToHttp().getRequest<{ user: UserInfo }>();
+    const request = context.switchToHttp().getRequest();
+
+    const firebaseUserId = get(request, ['user', 'uid']);
+
+    const deviceId = get(request, ['headers', 'device-id']);
 
     const successCount = this.prisma.story.count({
       where: {
-        firebaseUserId: {
-          equals: uid,
-        },
-        status: {
-          equals: 'success',
-        },
+        OR: [
+          {
+            firebaseUserId,
+            status: 'success',
+          },
+          {
+            deviceId,
+            status: 'success',
+          },
+        ],
       },
     });
 
     const inProgressCount = this.prisma.story.count({
       where: {
-        firebaseUserId: {
-          equals: uid,
-        },
-        status: {
-          equals: 'inprogress',
-        },
+        OR: [
+          {
+            firebaseUserId,
+            status: 'inprogress',
+          },
+          {
+            deviceId,
+            status: 'inprogress',
+          },
+        ],
       },
     });
 
