@@ -7,7 +7,7 @@ import { GetStoriesParams } from './getStory.types';
 export class GetStoryService {
   public constructor(private prisma: PrismaService) {}
 
-  public async getStory({ id, firebaseUserId }: GetStoriesParams) {
+  public async getStory({ id }: GetStoriesParams) {
     return this.prisma.story.findUniqueOrThrow({
       select: {
         id: true,
@@ -47,9 +47,6 @@ export class GetStoryService {
         },
       },
       where: {
-        firebaseUserId: {
-          equals: firebaseUserId,
-        },
         id,
       },
     });
