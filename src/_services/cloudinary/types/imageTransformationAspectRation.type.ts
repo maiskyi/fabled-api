@@ -5,4 +5,5 @@ export enum ImageTransformationAspectRation {
   '3x2' = '3:2',
   '4x3' = '4:3',
   '16x9' = '16:9',
+  '59x44' = '59:44',
 }
