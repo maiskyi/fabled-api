@@ -25,6 +25,16 @@ export class StoryService {
     readTime,
     deviceId,
   }: CreateStoryParams) {
+    const character = (() => {
+      if (characterId) {
+        return {
+          connect: {
+            id: characterId,
+          },
+        };
+      }
+    })();
+
     return this.client.mutate<
       CreateStoryMutation,
       CreateStoryMutationVariables
@@ -32,11 +42,7 @@ export class StoryService {
       variables: {
         data: {
           deviceId,
-          character: {
-            connect: {
-              id: characterId,
-            },
-          },
+          character,
           moralLesson: {
             connect: {
               id: moralLessonId,
