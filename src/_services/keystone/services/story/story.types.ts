@@ -1,5 +1,5 @@
 export interface CreateStoryParams {
-  readonly characterId: string;
+  readonly characterId?: string;
   readonly moralLessonId: string;
   readonly placeOfEventId: string;
   readonly promptId: string;

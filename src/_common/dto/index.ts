@@ -1,5 +1,4 @@
 // Responses
-export * from './responses/bootstrap.response';
 export * from './responses/stories.response';
 export * from './responses/story.response';
 

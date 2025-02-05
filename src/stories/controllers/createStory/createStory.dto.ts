@@ -1,12 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateStoryRequest {
   @ApiProperty({
     type: String,
+    required: false,
   })
   @IsString()
-  public readonly characterId: string;
+  @IsOptional()
+  public readonly characterId?: string;
 
   @ApiProperty({
     type: String,

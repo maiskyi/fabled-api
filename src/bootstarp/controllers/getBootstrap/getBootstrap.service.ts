@@ -32,6 +32,11 @@ export class GetBootstrapService {
         id: true,
         title: true,
         image: true,
+        prompt: {
+          select: {
+            id: true,
+          },
+        },
       },
       orderBy: {
         createdAt: 'desc',
@@ -58,6 +63,7 @@ export class GetBootstrapService {
       select: {
         id: true,
         message: true,
+        title: true,
       },
       orderBy: {
         createdAt: 'desc',

@@ -5,13 +5,12 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { Bootstrap } from '@common/dto';
 import { ImageTransformationQuery } from '@common/dto';
 import { CloudinaryService } from '@services/cloudinary';
 import { get } from 'lodash';
 
 import { GetBootstrapService } from './getBootstrap.service';
-import { BootstrapQuery } from './getBootstrap.dto';
+import { BootstrapQuery, BootstrapResponse } from './getBootstrap.dto';
 
 @ApiTags('Bootstrap')
 @Controller('bootstrap')
@@ -27,7 +26,7 @@ export class GetBootstrapController {
     summary: 'Get app bootstrap data',
   })
   @ApiOkResponse({
-    type: Bootstrap,
+    type: BootstrapResponse,
   })
   @ApiQuery({
     name: 'image',
@@ -36,7 +35,7 @@ export class GetBootstrapController {
   })
   public async getBootstrap(
     @Query() query: BootstrapQuery,
-  ): Promise<Bootstrap> {
+  ): Promise<BootstrapResponse> {
     const { image: transformation } = query;
 
     const {
