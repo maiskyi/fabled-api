@@ -6,3 +6,6 @@ export { StoryService } from './services/story';
 
 // Decorators
 export { DeviceId } from './decorators/deviceId';
+
+// Types
+export * from './types';

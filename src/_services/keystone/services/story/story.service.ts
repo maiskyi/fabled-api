@@ -24,6 +24,9 @@ export class StoryService {
     promptId,
     readTime,
     deviceId,
+    childAge,
+    childGender,
+    childName,
   }: CreateStoryParams) {
     const character = (() => {
       if (characterId) {
@@ -43,6 +46,9 @@ export class StoryService {
         data: {
           deviceId,
           character,
+          childAge,
+          childGender,
+          childName,
           moralLesson: {
             connect: {
               id: moralLessonId,

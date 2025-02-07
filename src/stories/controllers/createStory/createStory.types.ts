@@ -1,5 +1,7 @@
 import { Story } from '@prisma/client';
 
+import { CreateStoryRequest } from './createStory.dto';
+
 export interface CreateStoryParams {
   readonly characterId: string;
   readonly moralLessonId: string;
@@ -9,23 +11,14 @@ export interface CreateStoryParams {
   readonly firebaseUserId: string;
 }
 
-export interface GetUserStoriesIdsParams {
+export interface GetUserStoriesIdsParams extends CreateStoryRequest {
   readonly firebaseUserId: string;
-  readonly characterId?: string;
-  readonly moralLessonId?: string;
-  readonly placeOfEventId?: string;
-  readonly promptId?: string;
-  readonly readTime?: number;
   readonly deviceId?: string;
 }
 
-export interface GetExistingStoryParams {
-  readonly characterId?: string;
-  readonly moralLessonId?: string;
-  readonly placeOfEventId?: string;
-  readonly promptId?: string;
-  readonly readTime?: number;
-  readonly userStoriesIds: string[];
+export class GetExistingStoryParams extends CreateStoryRequest {
+  readonly firebaseUserId: string;
+  readonly deviceId?: string;
 }
 
 export interface CopyExistingStoryParams {

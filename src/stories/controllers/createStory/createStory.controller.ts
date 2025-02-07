@@ -62,14 +62,9 @@ export class CreateStoryController {
   ): Promise<CreateStoryResponse> {
     const { uid: firebaseUserId } = user;
 
-    const { userStoriesIds } = await this.service.getUserStoriesIds({
+    const { story } = await this.service.getExistingStory({
       deviceId,
       firebaseUserId,
-      ...body,
-    });
-
-    const { story } = await this.service.getExistingStory({
-      userStoriesIds,
       ...body,
     });
 

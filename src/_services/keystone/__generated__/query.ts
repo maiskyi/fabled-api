@@ -27,6 +27,7 @@ export type Scalars = {
   Int: { input: number; output: number };
   Float: { input: number; output: number };
   DateTime: { input: any; output: any };
+  Decimal: { input: any; output: any };
   JSON: { input: any; output: any };
   Upload: { input: any; output: any };
 };
@@ -230,6 +231,17 @@ export type DateTimeNullableFilter = {
   lte?: InputMaybe<Scalars['DateTime']['input']>;
   not?: InputMaybe<DateTimeNullableFilter>;
   notIn?: InputMaybe<Array<Scalars['DateTime']['input']>>;
+};
+
+export type DecimalNullableFilter = {
+  equals?: InputMaybe<Scalars['Decimal']['input']>;
+  gt?: InputMaybe<Scalars['Decimal']['input']>;
+  gte?: InputMaybe<Scalars['Decimal']['input']>;
+  in?: InputMaybe<Array<Scalars['Decimal']['input']>>;
+  lt?: InputMaybe<Scalars['Decimal']['input']>;
+  lte?: InputMaybe<Scalars['Decimal']['input']>;
+  not?: InputMaybe<DecimalNullableFilter>;
+  notIn?: InputMaybe<Array<Scalars['Decimal']['input']>>;
 };
 
 export type Feedback = {
@@ -1266,6 +1278,9 @@ export enum QueryMode {
 export type Story = {
   __typename?: 'Story';
   character?: Maybe<Character>;
+  childAge?: Maybe<Scalars['Decimal']['output']>;
+  childGender?: Maybe<StoryChildGenderType>;
+  childName?: Maybe<Scalars['String']['output']>;
   content?: Maybe<Scalars['String']['output']>;
   contentPrompt?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1285,8 +1300,23 @@ export type Story = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+export enum StoryChildGenderType {
+  Boy = 'boy',
+  Girl = 'girl',
+}
+
+export type StoryChildGenderTypeNullableFilter = {
+  equals?: InputMaybe<StoryChildGenderType>;
+  in?: InputMaybe<Array<StoryChildGenderType>>;
+  not?: InputMaybe<StoryChildGenderTypeNullableFilter>;
+  notIn?: InputMaybe<Array<StoryChildGenderType>>;
+};
+
 export type StoryCreateInput = {
   character?: InputMaybe<CharacterRelateToOneForCreateInput>;
+  childAge?: InputMaybe<Scalars['Decimal']['input']>;
+  childGender?: InputMaybe<StoryChildGenderType>;
+  childName?: InputMaybe<Scalars['String']['input']>;
   content?: InputMaybe<Scalars['String']['input']>;
   contentPrompt?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -1306,6 +1336,9 @@ export type StoryCreateInput = {
 };
 
 export type StoryOrderByInput = {
+  childAge?: InputMaybe<OrderDirection>;
+  childGender?: InputMaybe<OrderDirection>;
+  childName?: InputMaybe<OrderDirection>;
   content?: InputMaybe<OrderDirection>;
   contentPrompt?: InputMaybe<OrderDirection>;
   createdAt?: InputMaybe<OrderDirection>;
@@ -1365,6 +1398,9 @@ export type StoryUpdateArgs = {
 
 export type StoryUpdateInput = {
   character?: InputMaybe<CharacterRelateToOneForUpdateInput>;
+  childAge?: InputMaybe<Scalars['Decimal']['input']>;
+  childGender?: InputMaybe<StoryChildGenderType>;
+  childName?: InputMaybe<Scalars['String']['input']>;
   content?: InputMaybe<Scalars['String']['input']>;
   contentPrompt?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -1388,6 +1424,9 @@ export type StoryWhereInput = {
   NOT?: InputMaybe<Array<StoryWhereInput>>;
   OR?: InputMaybe<Array<StoryWhereInput>>;
   character?: InputMaybe<CharacterWhereInput>;
+  childAge?: InputMaybe<DecimalNullableFilter>;
+  childGender?: InputMaybe<StoryChildGenderTypeNullableFilter>;
+  childName?: InputMaybe<StringFilter>;
   content?: InputMaybe<StringFilter>;
   contentPrompt?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeNullableFilter>;
