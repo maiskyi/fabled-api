@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
-
+import { IsEnum, IsInt, IsNumber, IsOptional, IsString } from 'class-validator';
+import { DTO } from '@services/keystone';
 export class CreateStoryRequest {
   @ApiProperty({
     type: String,
@@ -33,6 +33,29 @@ export class CreateStoryRequest {
   })
   @IsNumber()
   public readonly readTime: number;
+
+  @ApiProperty({
+    type: String,
+    required: false,
+  })
+  @IsOptional()
+  public readonly childName: string;
+
+  @ApiProperty({
+    type: Number,
+    required: false,
+  })
+  @IsOptional()
+  @IsInt()
+  public readonly childAge: number;
+
+  @ApiProperty({
+    enum: DTO.StoryChildGenderType,
+    required: false,
+  })
+  @IsOptional()
+  @IsEnum(DTO.StoryChildGenderType)
+  public readonly childGender: string;
 }
 
 export class CreateStoryResponse {
