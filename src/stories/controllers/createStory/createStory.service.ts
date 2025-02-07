@@ -36,17 +36,17 @@ export class CreateStoryService {
     return { userStoriesIds };
   }
 
-  public async getExistingStory({
-    userStoriesIds,
-    ...params
-  }: GetExistingStoryParams) {
+  public async getExistingStory(params: GetExistingStoryParams) {
+    const { firebaseUserId: _1, deviceId: _2, ...search } = params;
+    const { userStoriesIds } = await this.getUserStoriesIds(params);
+
     const story = await this.prisma.story.findFirst({
       where: {
         id: {
           notIn: userStoriesIds,
         },
         parentId: null,
-        ...params,
+        ...search,
       },
     });
 

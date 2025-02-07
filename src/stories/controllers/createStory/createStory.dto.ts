@@ -50,12 +50,13 @@ export class CreateStoryRequest {
   public readonly childAge: number;
 
   @ApiProperty({
+    enumName: 'ChildGender',
     enum: DTO.StoryChildGenderType,
     required: false,
   })
   @IsOptional()
   @IsEnum(DTO.StoryChildGenderType)
-  public readonly childGender: string;
+  public readonly childGender: DTO.StoryChildGenderType;
 }
 
 export class CreateStoryResponse {
