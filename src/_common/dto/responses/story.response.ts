@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { StoryStatusType } from '@prisma/client';
+import { DTO } from '@services/keystone';
+import { IsOptional } from 'class-validator';
 
 export enum StoryStatusLog {
   ContentInProgress = 'contentInProgress',
@@ -124,8 +126,10 @@ export class Story {
 
   @ApiProperty({
     type: StoryCharacter,
+    required: false,
   })
-  public readonly character: StoryCharacter;
+  @IsOptional()
+  public readonly character?: StoryCharacter;
 
   @ApiProperty({
     type: StoryMoralLesson,
@@ -141,4 +145,19 @@ export class Story {
     type: StoryPrompt,
   })
   public readonly prompt: StoryPrompt;
+
+  @ApiProperty({
+    type: String,
+    required: false,
+  })
+  @IsOptional()
+  public readonly childName?: string;
+
+  @ApiProperty({
+    enumName: 'ChildGender',
+    enum: DTO.StoryChildGenderType,
+    required: false,
+  })
+  @IsOptional()
+  public readonly childGender?: string;
 }
