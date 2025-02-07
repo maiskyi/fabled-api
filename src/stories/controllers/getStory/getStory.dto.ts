@@ -14,3 +14,5 @@ export class GetStoryQuery {
   @Type(() => ImageTransformationQuery)
   public readonly image: ImageTransformationQuery;
 }
+
+export class GetStoryResponse {}

@@ -19,6 +19,8 @@ export class GetStoryService {
         createdAt: true,
         status: true,
         statusLog: true,
+        childName: true,
+        childGender: true,
         character: {
           select: {
             id: true,
