@@ -8,9 +8,7 @@ export class GetBootstrapService {
   public async getData() {
     const findManyCharacters = this.prisma.character.findMany({
       where: {
-        isPublished: {
-          equals: true,
-        },
+        isPublished: true,
       },
       select: {
         id: true,
@@ -24,9 +22,7 @@ export class GetBootstrapService {
 
     const findManyPlaceOfEvents = this.prisma.placeOfEvent.findMany({
       where: {
-        isPublished: {
-          equals: true,
-        },
+        isPublished: true,
       },
       select: {
         id: true,
@@ -45,9 +41,7 @@ export class GetBootstrapService {
 
     const findManyMoralLessons = this.prisma.moralLesson.findMany({
       where: {
-        isPublished: {
-          equals: true,
-        },
+        isPublished: true,
       },
       select: {
         id: true,
@@ -60,6 +54,9 @@ export class GetBootstrapService {
     });
 
     const findManyPrompts = this.prisma.prompt.findMany({
+      where: {
+        isPublished: true,
+      },
       select: {
         id: true,
         message: true,
@@ -92,19 +89,3 @@ export class GetBootstrapService {
     return { characters, placeOfEvents, moralLessons, prompts, config };
   }
 }
-
-// query getBootstrap($image: CloudinaryImageFormat) {
-//   placeOfEvents(where: { isPublished: { equals: true } }) {
-//     image {
-//       publicUrlTransformed(transformation: $image)
-//     }
-//   }
-//   characters(where: { isPublished: { equals: true } }) {
-//     id
-//     title
-//     description
-//     image {
-//       publicUrlTransformed(transformation: $image)
-//     }
-//   }
-// }
