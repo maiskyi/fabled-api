@@ -77,14 +77,31 @@ export class GetBootstrapService {
       },
     });
 
-    const [characters, placeOfEvents, moralLessons, prompts, config] =
-      await Promise.all([
-        findManyCharacters,
-        findManyPlaceOfEvents,
-        findManyMoralLessons,
-        findManyPrompts,
-        findUniqueConfig,
-      ]);
+    const findManyLullabies = this.prisma.lullaby.findMany({
+      select: {
+        id: true,
+        title: true,
+        mp3_filename: true,
+      },
+    });
+
+    const [
+      characters,
+      placeOfEvents,
+      moralLessons,
+      prompts,
+      config,
+      lullabies,
+    ] = await Promise.all([
+      findManyCharacters,
+      findManyPlaceOfEvents,
+      findManyMoralLessons,
+      findManyPrompts,
+      findUniqueConfig,
+      findManyLullabies,
+    ]);
+
+    console.log(lullabies);
 
     return { characters, placeOfEvents, moralLessons, prompts, config };
   }
