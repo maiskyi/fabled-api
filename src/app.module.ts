@@ -7,6 +7,7 @@ import { CloudinaryModule } from '@services/cloudinary';
 import { RevenueCatModule } from '@services/revenue-cat';
 import { KeystoneModule } from '@services/keystone';
 import { MailerModule } from '@services/mailer';
+import { TelegramModule } from '@services/telegram';
 
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
@@ -14,6 +15,7 @@ import { BootstrapModule } from './bootstarp';
 import { InquiriesModule } from './inquiries';
 import { FeedbacksModule } from './feedbacks';
 import { SystemModule } from './system';
+import { HooksModule } from './hooks';
 
 const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
 
@@ -44,12 +46,18 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
       from: process.env.MAILER_FROM,
       to: process.env.MAILER_TO,
     }),
-    SystemModule,
+    TelegramModule.forRoot({
+      token: process.env.TG_BOT_TOKEN,
+      chanelId: process.env.TG_CHANEL_ID,
+    }),
+    // Features
     BootstrapModule,
-    HealthCheckModule,
-    StoriesModule,
-    InquiriesModule,
     FeedbacksModule,
+    HealthCheckModule,
+    HooksModule,
+    InquiriesModule,
+    StoriesModule,
+    SystemModule,
   ],
 })
 export class AppModule {}
