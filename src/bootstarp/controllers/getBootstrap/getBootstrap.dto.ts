@@ -85,6 +85,23 @@ export class BootstrapPlaceOfEventItem {
   public readonly prompt: BootstrapPlaceOfEventPrompt;
 }
 
+export class BootstrapLullabyItem {
+  @ApiProperty({
+    type: String,
+  })
+  public readonly id: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  public readonly title: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  public readonly url: string;
+}
+
 export class BootstrapResponse {
   @ApiProperty({
     type: [BootstrapMoralLessonsItem],
@@ -110,6 +127,12 @@ export class BootstrapResponse {
     type: BootstrapConfig,
   })
   public readonly config: BootstrapConfig;
+
+  @ApiProperty({
+    type: BootstrapLullabyItem,
+    isArray: true,
+  })
+  public readonly lullabies: BootstrapLullabyItem[];
 }
 
 export class BootstrapQuery {

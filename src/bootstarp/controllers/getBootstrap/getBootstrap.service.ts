@@ -126,8 +126,13 @@ export class GetBootstrapService {
       findManyLullabies,
     ]);
 
-    console.log(lullabies);
-
-    return { characters, placeOfEvents, moralLessons, prompts, config };
+    return {
+      characters,
+      placeOfEvents,
+      moralLessons,
+      prompts,
+      config,
+      lullabies,
+    };
   }
 }
