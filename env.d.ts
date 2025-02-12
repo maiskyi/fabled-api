@@ -18,5 +18,9 @@ declare namespace NodeJS {
     REVENUECAT_PROJECT_ID: string;
     SWAGGER_LOGIN: string;
     SWAGGER_PASSWORD: string;
+    AWS_S3_BUCKET_NAME: string;
+    AWS_S3_BUCKET_REGION: string;
+    AWS_S3_ACCESS_KEY: string;
+    AWS_S3_ACCESS_KEY_SECRET: string;
   }
 }

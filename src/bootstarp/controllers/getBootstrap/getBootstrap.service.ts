@@ -1,9 +1,40 @@
 import { PrismaService } from '@core/prisma';
 import { Injectable } from '@nestjs/common';
+import { FabledBucketService } from '@services/aws-s3/services/fabled-bucket';
 
 @Injectable()
 export class GetBootstrapService {
-  public constructor(private prisma: PrismaService) {}
+  public constructor(
+    private prisma: PrismaService,
+    private s3: FabledBucketService,
+  ) {}
+
+  private async getLullabies() {
+    const findManyLullabies = await this.prisma.lullaby.findMany({
+      select: {
+        id: true,
+        title: true,
+        mp3_filename: true,
+      },
+      where: {
+        isPublished: true,
+      },
+    });
+
+    const lullabiesRequests = findManyLullabies.map(
+      ({ id, title, mp3_filename }) => {
+        return this.s3
+          .getSignedUrl({
+            filename: mp3_filename,
+          })
+          .then(({ url }) => ({ id, url, title }));
+      },
+    );
+
+    const lullabies = Promise.all(lullabiesRequests);
+
+    return lullabies;
+  }
 
   public async getData() {
     const findManyCharacters = this.prisma.character.findMany({
@@ -77,13 +108,7 @@ export class GetBootstrapService {
       },
     });
 
-    const findManyLullabies = this.prisma.lullaby.findMany({
-      select: {
-        id: true,
-        title: true,
-        mp3_filename: true,
-      },
-    });
+    const findManyLullabies = this.getLullabies();
 
     const [
       characters,

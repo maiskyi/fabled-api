@@ -8,6 +8,7 @@ import { RevenueCatModule } from '@services/revenue-cat';
 import { KeystoneModule } from '@services/keystone';
 import { MailerModule } from '@services/mailer';
 import { TelegramModule } from '@services/telegram';
+import { AwsS3Module } from '@services/aws-s3';
 
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
@@ -49,6 +50,12 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     TelegramModule.forRoot({
       token: process.env.TG_BOT_TOKEN,
       chanelId: process.env.TG_CHANEL_ID,
+    }),
+    AwsS3Module.forRoot({
+      bucketName: process.env.AWS_S3_BUCKET_NAME,
+      accessKeyId: process.env.AWS_S3_ACCESS_KEY,
+      region: process.env.AWS_S3_BUCKET_REGION,
+      secretAccessKey: process.env.AWS_S3_ACCESS_KEY_SECRET,
     }),
     // Features
     BootstrapModule,
