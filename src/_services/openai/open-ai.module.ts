@@ -20,6 +20,7 @@ export class OnepAiModule {
           }),
         },
       ],
+      exports: [OnepAiClient],
     };
   }
 }

@@ -12,6 +12,7 @@ import {
   CreateStoryInterceptor,
 } from './controllers/createStory';
 import { GetStoryController, GetStoryService } from './controllers/getStory';
+import { GenStoryHandler } from './commands/gen-story';
 
 @Module({
   providers: [
@@ -21,6 +22,7 @@ import { GetStoryController, GetStoryService } from './controllers/getStory';
     CreateStoryGuard,
     CreateStoryService,
     CreateStoryInterceptor,
+    GenStoryHandler,
   ],
   controllers: [
     GetStoriesController,

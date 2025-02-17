@@ -10,6 +10,7 @@ import { MailerModule } from '@services/mailer';
 import { TelegramModule } from '@services/telegram';
 import { AwsS3Module } from '@services/aws-s3';
 import { OnepAiModule } from '@services/openai';
+import { CqrsModule } from '@nestjs/cqrs';
 
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
@@ -24,6 +25,7 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
 @Module({
   imports: [
     PrismaModule,
+    CqrsModule.forRoot(),
     FirebaseModule.forRoot({
       serviceAccount,
     }),

@@ -21,6 +21,9 @@ import { HasActiveSubscription } from '@services/revenue-cat';
 import { HttpExceptionResponse } from '@common/dto';
 import { StoryService } from '@services/keystone';
 import { DeviceId } from '@services/keystone';
+import { CommandBus } from '@nestjs/cqrs';
+
+import { GenStoryCommand } from '../../commands/gen-story';
 
 import { CreateStoryGuard } from './createStory.guard';
 import { CreateStoryRequest, CreateStoryResponse } from './createStory.dto';
@@ -34,6 +37,7 @@ export class CreateStoryController {
   public constructor(
     private story: StoryService,
     private service: CreateStoryService,
+    private commandBus: CommandBus,
   ) {}
 
   @Post()
@@ -95,6 +99,8 @@ export class CreateStoryController {
       deviceId,
       ...body,
     });
+
+    this.commandBus.execute(new GenStoryCommand({ id: '1' }));
 
     return { id };
   }

@@ -1,1 +1,1 @@
-export { OnepAiClient } from './client.service';
+export { OpenAiClient as OnepAiClient } from './client.service';
