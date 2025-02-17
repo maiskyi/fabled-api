@@ -1,4 +1,10 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -19,9 +25,11 @@ import { DeviceId } from '@services/keystone';
 import { CreateStoryGuard } from './createStory.guard';
 import { CreateStoryRequest, CreateStoryResponse } from './createStory.dto';
 import { CreateStoryService } from './createStory.service';
+import { CreateStoryInterceptor } from './createStory.interceptor';
 
 @ApiTags('Stories')
 @Controller('stories')
+@UseInterceptors(CreateStoryInterceptor)
 export class CreateStoryController {
   public constructor(
     private story: StoryService,
