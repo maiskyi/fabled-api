@@ -1,6 +1,6 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
-import { NewStoryCreatedEvent } from './new-story-created.event';
+import { NewStoryCreatedEvent } from './newStoryCreated.event';
 
 @EventsHandler(NewStoryCreatedEvent)
 export class NewStoryCreatedHandler

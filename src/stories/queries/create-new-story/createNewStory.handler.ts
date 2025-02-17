@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { PrismaService } from '@core/prisma';
 
-import { CreateNewStoryQuery } from './create-new-story.query';
+import { CreateNewStoryQuery } from './createNewStory.query';
 
 @QueryHandler(CreateNewStoryQuery)
 export class CreateNewStoryHandler

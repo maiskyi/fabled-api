@@ -1,2 +1,2 @@
-export { CreateNewStoryQuery } from './create-new-story.query';
-export { CreateNewStoryHandler } from './create-new-story.handler';
+export { CreateNewStoryQuery } from './createNewStory.query';
+export { CreateNewStoryHandler } from './createNewStory.handler';

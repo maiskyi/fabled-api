@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { OnepAiClient } from '@services/openai';
 
-import { GenStoryContentCommand } from './gen-story-content.command';
+import { GenStoryContentCommand } from './genStoryContent.command';
 
 @CommandHandler(GenStoryContentCommand)
 export class GenStoryContentHandler

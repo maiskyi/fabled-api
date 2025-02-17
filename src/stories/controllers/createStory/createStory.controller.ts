@@ -20,9 +20,10 @@ import { OrGuard } from '@common/guards';
 import { HasActiveSubscription } from '@services/revenue-cat';
 import { HttpExceptionResponse } from '@common/dto';
 import { DeviceId } from '@services/keystone';
-import { QueryBus } from '@nestjs/cqrs';
+import { EventBus, QueryBus } from '@nestjs/cqrs';
 
 import { CreateNewStoryQuery } from '../../queries/create-new-story';
+import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 
 import { CreateStoryGuard } from './createStory.guard';
 import { CreateStoryRequest, CreateStoryResponse } from './createStory.dto';
@@ -36,6 +37,7 @@ export class CreateStoryController {
   public constructor(
     private service: CreateStoryService,
     private queryBus: QueryBus,
+    private eventBus: EventBus,
   ) {}
 
   @Post()
@@ -95,6 +97,8 @@ export class CreateStoryController {
         ...body,
       }),
     );
+
+    this.eventBus.publish(new NewStoryCreatedEvent({ id }));
 
     return { id };
   }

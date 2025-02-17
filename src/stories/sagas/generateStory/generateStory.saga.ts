@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ICommand, ofType, Saga } from '@nestjs/cqrs';
 import { map, merge, Observable } from 'rxjs';
 
-import { NewStoryCreatedEvent } from '../../events/new-story-created';
-import { GenStoryContentCommand } from '../../commands/gen-story-content';
+import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
+import { GenStoryContentCommand } from '../../commands/genStoryContent';
 
 @Injectable()
 export class GenerateStorySaga {

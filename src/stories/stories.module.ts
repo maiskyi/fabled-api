@@ -14,13 +14,13 @@ import {
 } from './controllers/createStory';
 import { GetStoryController, GetStoryService } from './controllers/getStory';
 // Sagas
-import { GenerateStorySaga } from './sagas/generate-story';
+import { GenerateStorySaga } from './sagas/generateStory';
 // Events
-import { NewStoryCreatedHandler } from './events/new-story-created';
+import { NewStoryCreatedHandler } from './events/newStoryCreated';
 // Queries
 import { CreateNewStoryHandler } from './queries/create-new-story';
 // Commands
-import { GenStoryContentHandler } from './commands/gen-story-content';
+import { GenStoryContentHandler } from './commands/genStoryContent';
 
 @Module({
   providers: [
