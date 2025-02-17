@@ -9,6 +9,7 @@ import { KeystoneModule } from '@services/keystone';
 import { MailerModule } from '@services/mailer';
 import { TelegramModule } from '@services/telegram';
 import { AwsS3Module } from '@services/aws-s3';
+import { OnepAiModule } from '@services/openai';
 
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
@@ -56,6 +57,9 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
       accessKeyId: process.env.AWS_S3_ACCESS_KEY,
       region: process.env.AWS_S3_BUCKET_REGION,
       secretAccessKey: process.env.AWS_S3_ACCESS_KEY_SECRET,
+    }),
+    OnepAiModule.forRoot({
+      apiKey: process.env.OPENAI_API_KEY,
     }),
     // Features
     BootstrapModule,
