@@ -1,13 +1,17 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { OnepAiClient } from '@services/openai';
 
-import { GenStoryCommand } from './gen-story.command';
+import { GenStoryContentCommand } from './gen-story-content.command';
 
-@CommandHandler(GenStoryCommand)
-export class GenStoryHandler implements ICommandHandler<GenStoryCommand> {
+@CommandHandler(GenStoryContentCommand)
+export class GenStoryContentHandler
+  implements ICommandHandler<GenStoryContentCommand>
+{
   constructor(private openai: OnepAiClient) {}
 
-  async execute({ story }: GenStoryCommand) {
+  async execute({ story }: GenStoryContentCommand) {
+    const { id } = story;
+    console.log(id);
     // const { heroId, dragonId } = command;
     // const hero = this.repository.findOneById(+heroId);
 

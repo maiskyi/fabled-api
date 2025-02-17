@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsInt, IsNumber, IsOptional, IsString } from 'class-validator';
-import { DTO } from '@services/keystone';
+import { StoryChildGenderType } from '@prisma/client';
 export class CreateStoryRequest {
   @ApiProperty({
     type: String,
@@ -51,12 +51,12 @@ export class CreateStoryRequest {
 
   @ApiProperty({
     enumName: 'ChildGender',
-    enum: DTO.StoryChildGenderType,
+    enum: StoryChildGenderType,
     required: false,
   })
   @IsOptional()
-  @IsEnum(DTO.StoryChildGenderType)
-  public readonly childGender: DTO.StoryChildGenderType;
+  @IsEnum(StoryChildGenderType)
+  public readonly childGender: StoryChildGenderType;
 }
 
 export class CreateStoryResponse {

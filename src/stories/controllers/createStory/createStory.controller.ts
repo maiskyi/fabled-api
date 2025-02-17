@@ -19,11 +19,10 @@ import { AuthGuard, User, UserInfo } from '@services/firebase';
 import { OrGuard } from '@common/guards';
 import { HasActiveSubscription } from '@services/revenue-cat';
 import { HttpExceptionResponse } from '@common/dto';
-import { StoryService } from '@services/keystone';
 import { DeviceId } from '@services/keystone';
-import { CommandBus } from '@nestjs/cqrs';
+import { QueryBus } from '@nestjs/cqrs';
 
-import { GenStoryCommand } from '../../commands/gen-story';
+import { CreateNewStoryQuery } from '../../queries/create-new-story';
 
 import { CreateStoryGuard } from './createStory.guard';
 import { CreateStoryRequest, CreateStoryResponse } from './createStory.dto';
@@ -35,9 +34,8 @@ import { CreateStoryInterceptor } from './createStory.interceptor';
 @UseInterceptors(CreateStoryInterceptor)
 export class CreateStoryController {
   public constructor(
-    private story: StoryService,
     private service: CreateStoryService,
-    private commandBus: CommandBus,
+    private queryBus: QueryBus,
   ) {}
 
   @Post()
@@ -90,17 +88,13 @@ export class CreateStoryController {
       return { id };
     }
 
-    const {
-      data: {
-        createStory: { id },
-      },
-    } = await this.story.create({
-      firebaseUserId,
-      deviceId,
-      ...body,
-    });
-
-    this.commandBus.execute(new GenStoryCommand({ id: '1' }));
+    const { id } = await this.queryBus.execute(
+      new CreateNewStoryQuery({
+        firebaseUserId,
+        deviceId,
+        ...body,
+      }),
+    );
 
     return { id };
   }

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { HasActiveSubscription } from '@services/revenue-cat';
 
+// Controller
 import {
   GetStoriesController,
   GetStoriesService,
@@ -12,7 +13,14 @@ import {
   CreateStoryInterceptor,
 } from './controllers/createStory';
 import { GetStoryController, GetStoryService } from './controllers/getStory';
-import { GenStoryHandler } from './commands/gen-story';
+// Sagas
+import { GenerateStorySaga } from './sagas/generate-story';
+// Events
+import { NewStoryCreatedHandler } from './events/new-story-created';
+// Queries
+import { CreateNewStoryHandler } from './queries/create-new-story';
+// Commands
+import { GenStoryContentHandler } from './commands/gen-story-content';
 
 @Module({
   providers: [
@@ -22,7 +30,11 @@ import { GenStoryHandler } from './commands/gen-story';
     CreateStoryGuard,
     CreateStoryService,
     CreateStoryInterceptor,
-    GenStoryHandler,
+    GenStoryContentHandler,
+    GenerateStorySaga,
+    NewStoryCreatedHandler,
+    // Queries
+    CreateNewStoryHandler,
   ],
   controllers: [
     GetStoriesController,
