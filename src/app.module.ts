@@ -1,8 +1,9 @@
 import { resolve } from 'path';
 
 import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
+// Services
 import { FirebaseModule } from '@services/firebase';
-import { PrismaModule } from '@core/prisma';
 import { CloudinaryModule } from '@services/cloudinary';
 import { RevenueCatModule } from '@services/revenue-cat';
 import { KeystoneModule } from '@services/keystone';
@@ -10,7 +11,9 @@ import { MailerModule } from '@services/mailer';
 import { TelegramModule } from '@services/telegram';
 import { AwsS3Module } from '@services/aws-s3';
 import { OnepAiModule } from '@services/openai';
-import { CqrsModule } from '@nestjs/cqrs';
+import { StabilityAiModule } from '@services/stabilityai';
+// Core
+import { PrismaModule } from '@core/prisma';
 
 import { StoriesModule } from './stories';
 import { HealthCheckModule } from './health-check';
@@ -62,6 +65,10 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
     }),
     OnepAiModule.forRoot({
       apiKey: process.env.OPENAI_API_KEY,
+    }),
+    StabilityAiModule.forRoot({
+      apiKey: process.env.STABILITY_AI_API_KEY,
+      baseURL: process.env.STABILITY_AI_API_HOST,
     }),
     // Features
     BootstrapModule,

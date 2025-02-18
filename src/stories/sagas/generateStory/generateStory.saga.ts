@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ICommand, ofType, Saga } from '@nestjs/cqrs';
-import { map, merge, Observable, tap } from 'rxjs';
+import { catchError, map, merge, Observable, of, tap } from 'rxjs';
 
 import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 import { GenStoryContentCommand } from '../../commands/genStoryContent';
@@ -31,6 +31,12 @@ export class GenerateStorySaga {
             new GenStoryImageCommand(event),
         ),
         tap(() => this.logger.log(`Generating story image...`)),
+        catchError((error) => {
+          this.logger.error(
+            `Order processing failed after retries: ${error.message}`,
+          );
+          return of(null);
+        }),
       ),
     );
   }
