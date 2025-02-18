@@ -22,7 +22,7 @@ import { HttpExceptionResponse } from '@common/dto';
 import { DeviceId } from '@services/keystone';
 import { EventBus, QueryBus } from '@nestjs/cqrs';
 
-import { CreateNewStoryQuery } from '../../queries/create-new-story';
+import { CreateNewStoryQuery } from '../../queries/createNewStory';
 import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 
 import { CreateStoryGuard } from './createStory.guard';

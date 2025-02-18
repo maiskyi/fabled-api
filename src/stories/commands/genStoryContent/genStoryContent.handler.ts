@@ -1,5 +1,18 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import {
+  CommandHandler,
+  EventBus,
+  ICommandHandler,
+  QueryBus,
+} from '@nestjs/cqrs';
 import { OnepAiClient } from '@services/openai';
+import { get } from 'lodash';
+
+import {
+  AddStatusToStoryLogQuery,
+  StoryStatusLog,
+} from '../../queries/addStatusToStoryLog';
+import { UpdateStoryQuery } from '../../queries/updateStory';
+import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
 
 import { GenStoryContentCommand } from './genStoryContent.command';
 
@@ -7,23 +20,73 @@ import { GenStoryContentCommand } from './genStoryContent.command';
 export class GenStoryContentHandler
   implements ICommandHandler<GenStoryContentCommand>
 {
-  constructor(private openai: OnepAiClient) {}
+  constructor(
+    private openai: OnepAiClient,
+    private queryBus: QueryBus,
+    private eventBus: EventBus,
+  ) {}
 
-  async execute({ story }: GenStoryContentCommand) {
-    const { id } = story;
-    console.log(id);
-    // const { heroId, dragonId } = command;
-    // const hero = this.repository.findOneById(+heroId);
+  async execute(command: GenStoryContentCommand) {
+    const {
+      story: { id },
+    } = command;
 
-    // hero.killEnemy(dragonId);
+    const { contentPrompt } = await this.queryBus.execute(
+      new AddStatusToStoryLogQuery({
+        id,
+        statusLog: [StoryStatusLog.ContentInProgress],
+      }),
+    );
 
-    // await this.repository.persist(hero);
+    const completion = await this.openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a professional writer of fairy tales for children',
+        },
+        {
+          role: 'user',
+          content: contentPrompt,
+        },
+        {
+          role: 'user',
+          content: `
+              Please provide the response in JSON format with the following fields:
+              {
+                "title": "string" // title of the fairy tail,
+                "content": "string" // content of the fairy tail
+                "illustration": "string" // fairy tail illustration detailed description
+              }
+            `,
+        },
+      ],
+    });
 
-    return true;
+    const result = get(completion, ['choices', 0, 'message', 'content']);
 
-    // // "ICommandHandler<KillDragonCommand>" forces you to return a value that matches the command's return type
-    // return {
-    //   actionId: crypto.randomUUID(), // This value will be returned to the caller
-    // };
+    const json = result.replace(/```json|```/g, '').trim();
+
+    const { title, content, illustration } = JSON.parse(json);
+
+    await this.queryBus.execute(
+      new UpdateStoryQuery({
+        id,
+        data: {
+          title,
+          content,
+          imagePrompt: illustration,
+        },
+      }),
+    );
+
+    this.eventBus.publish(
+      new StoryContentGeneratedEvent({
+        id,
+        title,
+        content,
+        imagePrompt: illustration,
+      }),
+    );
   }
 }

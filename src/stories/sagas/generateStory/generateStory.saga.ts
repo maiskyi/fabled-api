@@ -1,20 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ICommand, ofType, Saga } from '@nestjs/cqrs';
-import { map, merge, Observable } from 'rxjs';
+import { map, merge, Observable, tap } from 'rxjs';
 
 import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 import { GenStoryContentCommand } from '../../commands/genStoryContent';
 
 @Injectable()
 export class GenerateStorySaga {
+  private readonly logger = new Logger(GenerateStorySaga.name, {
+    timestamp: true,
+  });
+
   @Saga()
   public generate(events$: Observable<any>): Observable<ICommand> {
-    // return events$
-    //   .pipe
-    //   //   ofType(HeroKilledDragonEvent),
-    //   //   map((event) => new DropAncientItemCommand(event.heroId, fakeItemID)),
-    //   ();
-
     return merge(
       events$.pipe(
         ofType(NewStoryCreatedEvent),
@@ -22,6 +20,7 @@ export class GenerateStorySaga {
           (event: NewStoryCreatedEvent) =>
             new GenStoryContentCommand(event.story),
         ),
+        tap(() => this.logger.log('Generating story content...')),
       ),
       // events$.pipe(
       //   filter((event) => event instanceof PaymentFailedEvent),

@@ -4,7 +4,7 @@ interface GenStoryContentCommandParams {
   id: string;
 }
 
-export class GenStoryContentCommand extends Command<boolean> {
+export class GenStoryContentCommand extends Command<void> {
   public constructor(public readonly story: GenStoryContentCommandParams) {
     super();
   }

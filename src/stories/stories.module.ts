@@ -17,8 +17,11 @@ import { GetStoryController, GetStoryService } from './controllers/getStory';
 import { GenerateStorySaga } from './sagas/generateStory';
 // Events
 import { NewStoryCreatedHandler } from './events/newStoryCreated';
+import { StoryContentGeneratedHandler } from './events/storyContentGenerated';
 // Queries
-import { CreateNewStoryHandler } from './queries/create-new-story';
+import { CreateNewStoryHandler } from './queries/createNewStory';
+import { AddStatusToStoryLogHandler } from './queries/addStatusToStoryLog';
+import { UpdateStoryHandler } from './queries/updateStory';
 // Commands
 import { GenStoryContentHandler } from './commands/genStoryContent';
 
@@ -32,9 +35,13 @@ import { GenStoryContentHandler } from './commands/genStoryContent';
     CreateStoryInterceptor,
     GenStoryContentHandler,
     GenerateStorySaga,
-    NewStoryCreatedHandler,
     // Queries
     CreateNewStoryHandler,
+    AddStatusToStoryLogHandler,
+    UpdateStoryHandler,
+    // Events
+    StoryContentGeneratedHandler,
+    NewStoryCreatedHandler,
   ],
   controllers: [
     GetStoriesController,
