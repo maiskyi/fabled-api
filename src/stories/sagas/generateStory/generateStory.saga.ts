@@ -1,11 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ICommand, ofType, Saga } from '@nestjs/cqrs';
-import { catchError, map, merge, Observable, of, tap } from 'rxjs';
+import { map, merge, Observable, tap } from 'rxjs';
 
 import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 import { GenStoryContentCommand } from '../../commands/genStoryContent';
 import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
 import { GenStoryImageCommand } from '../../commands/genStoryImage';
+import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
+import { UploadStoryImageCommand } from '../../commands/uploadStoryImage';
 
 @Injectable()
 export class GenerateStorySaga {
@@ -31,12 +33,14 @@ export class GenerateStorySaga {
             new GenStoryImageCommand(event),
         ),
         tap(() => this.logger.log(`Generating story image...`)),
-        catchError((error) => {
-          this.logger.error(
-            `Order processing failed after retries: ${error.message}`,
-          );
-          return of(null);
-        }),
+      ),
+      events$.pipe(
+        ofType(StoryImageGeneratedEvent),
+        map(
+          ({ event }: StoryImageGeneratedEvent) =>
+            new UploadStoryImageCommand(event),
+        ),
+        tap(() => this.logger.log(`Uploading story image...`)),
       ),
     );
   }

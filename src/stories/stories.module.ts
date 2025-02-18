@@ -18,6 +18,7 @@ import { GenerateStorySaga } from './sagas/generateStory';
 // Events
 import { NewStoryCreatedHandler } from './events/newStoryCreated';
 import { StoryContentGeneratedHandler } from './events/storyContentGenerated';
+import { StoryImageGeneratedHandler } from './events/storyImageGenerated';
 // Queries
 import { CreateNewStoryHandler } from './queries/createNewStory';
 import { AddStatusToStoryLogHandler } from './queries/addStatusToStoryLog';
@@ -25,6 +26,7 @@ import { UpdateStoryHandler } from './queries/updateStory';
 // Commands
 import { GenStoryContentHandler } from './commands/genStoryContent';
 import { GenStoryImageHandler } from './commands/genStoryImage';
+import { UploadStoryImageHandler } from './commands/uploadStoryImage';
 
 @Module({
   providers: [
@@ -42,9 +44,11 @@ import { GenStoryImageHandler } from './commands/genStoryImage';
     // Events
     StoryContentGeneratedHandler,
     NewStoryCreatedHandler,
+    StoryImageGeneratedHandler,
     // Commands
     GenStoryContentHandler,
     GenStoryImageHandler,
+    UploadStoryImageHandler,
   ],
   controllers: [
     GetStoriesController,

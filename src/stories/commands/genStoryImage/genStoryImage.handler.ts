@@ -4,8 +4,13 @@ import {
   ICommandHandler,
   QueryBus,
 } from '@nestjs/cqrs';
-import { OnepAiClient } from '@services/openai';
 import { StabilityAiClient } from '@services/stabilityai';
+
+import {
+  AddStatusToStoryLogQuery,
+  StoryStatusLog,
+} from '../../queries/addStatusToStoryLog';
+import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
 
 import { GenStoryImageCommand } from './genStoryImage.command';
 
@@ -14,7 +19,6 @@ export class GenStoryImageHandler
   implements ICommandHandler<GenStoryImageCommand>
 {
   constructor(
-    private openai: OnepAiClient,
     private queryBus: QueryBus,
     private eventBus: EventBus,
     private client: StabilityAiClient,
@@ -22,19 +26,35 @@ export class GenStoryImageHandler
 
   async execute({ command }: GenStoryImageCommand) {
     try {
+      const { id, imagePrompt } = command;
+
+      await this.queryBus.execute(
+        new AddStatusToStoryLogQuery({
+          id,
+          statusLog: [StoryStatusLog.ImageInProgress],
+        }),
+      );
+
       const {
         artifacts: [image],
       } = await this.client.sdxl.textToImage('stable-diffusion-xl-1024-v1-0', {
         text_prompts: [
           {
-            text: command.imagePrompt,
+            text: imagePrompt,
           },
         ],
         samples: 1,
+        steps: 30,
         width: 768,
         height: 1344,
       });
-      console.log(image);
+
+      this.eventBus.publish(
+        new StoryImageGeneratedEvent({
+          id,
+          ...image,
+        }),
+      );
     } catch (e) {
       console.log(e);
     }
