@@ -2,16 +2,16 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { PrismaService } from '@core/prisma';
 import { castArray } from 'lodash';
 
-import { AddStatusToStoryLogQuery } from './addStatusToStoryLog.query';
+import { UpdateStoryStatusQuery } from './updateStoryStatus.query';
 
-@QueryHandler(AddStatusToStoryLogQuery)
-export class AddStatusToStoryLogHandler
-  implements IQueryHandler<AddStatusToStoryLogQuery>
+@QueryHandler(UpdateStoryStatusQuery)
+export class UpdateStoryStatusHandler
+  implements IQueryHandler<UpdateStoryStatusQuery>
 {
   constructor(private prisma: PrismaService) {}
 
-  async execute({ query: data }: AddStatusToStoryLogQuery) {
-    const { id, statusLog: update } = data;
+  async execute({ query: data }: UpdateStoryStatusQuery) {
+    const { id, log } = data;
 
     const { statusLog } = await this.prisma.story.findUnique({
       where: { id },
@@ -21,7 +21,7 @@ export class AddStatusToStoryLogHandler
     return this.prisma.story.update({
       where: { id },
       data: {
-        statusLog: [...castArray(statusLog), ...update],
+        statusLog: [...castArray(statusLog), log],
       },
       select: { statusLog: true, contentPrompt: true },
     });

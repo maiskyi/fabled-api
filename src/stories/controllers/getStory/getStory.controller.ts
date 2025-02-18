@@ -9,7 +9,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@services/firebase';
 import { Story, StoryStatusLog } from '@common/dto';
-import { CloudinaryService } from '@services/cloudinary';
+import { CloudinaryClient } from '@services/cloudinary';
 
 import { GetStoryService } from './getStory.service';
 import { GetStoryQuery } from './getStory.dto';
@@ -19,7 +19,7 @@ import { GetStoryQuery } from './getStory.dto';
 export class GetStoryController {
   public constructor(
     private story: GetStoryService,
-    private cloudinary: CloudinaryService,
+    private cloudinary: CloudinaryClient,
   ) {}
 
   @Get(':id')
@@ -49,7 +49,7 @@ export class GetStoryController {
     return {
       ...rest,
       statusLog: statusLog as StoryStatusLog[],
-      image: this.cloudinary.image(
+      image: this.cloudinary.image.url(
         get(image, ['_meta', 'public_id']),
         transformation,
       ),

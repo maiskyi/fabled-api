@@ -10,7 +10,7 @@ import {
 import { AuthGuard, User, UserInfo } from '@services/firebase';
 import { StoryStatusType } from '@prisma/client';
 import { ImageTransformationQuery, Stories } from '@common/dto';
-import { CloudinaryService } from '@services/cloudinary';
+import { CloudinaryClient } from '@services/cloudinary';
 import { DeviceId } from '@services/keystone';
 
 import { GetStoriesService } from './getStories.service';
@@ -21,7 +21,7 @@ import { GetStoriesQuery } from './getStories.dto';
 export class GetStoriesController {
   public constructor(
     private stories: GetStoriesService,
-    private cloudinary: CloudinaryService,
+    private cloudinary: CloudinaryClient,
   ) {}
 
   @Get()
@@ -78,7 +78,7 @@ export class GetStoriesController {
 
     const data = records.map(({ image, ...rest }) => ({
       ...rest,
-      image: this.cloudinary.image(
+      image: this.cloudinary.image.url(
         get(image, ['_meta', 'public_id']),
         transformation,
       ),

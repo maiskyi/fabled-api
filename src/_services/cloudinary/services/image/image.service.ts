@@ -4,8 +4,8 @@ import { v2 } from 'cloudinary';
 import { ImageTransformation } from '../../types';
 
 @Injectable()
-export class CloudinaryService {
-  public image(
+export class CloudinaryImageService {
+  public url(
     publicId: string,
     { width, height, crop, aspectRatio }: ImageTransformation = {},
   ): string {

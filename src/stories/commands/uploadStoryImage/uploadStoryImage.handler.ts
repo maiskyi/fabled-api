@@ -5,11 +5,12 @@ import {
   QueryBus,
 } from '@nestjs/cqrs';
 import { StabilityAiClient } from '@services/stabilityai';
+import { CloudinaryClient } from '@services/cloudinary';
 
 import {
-  AddStatusToStoryLogQuery,
+  UpdateStoryStatusQuery,
   StoryStatusLog,
-} from '../../queries/addStatusToStoryLog';
+} from '../../queries/updateStoryStatus';
 import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
 
 import { UploadStoryImageCommand } from './uploadStoryImage.command';
@@ -22,12 +23,14 @@ export class UploadStoryImageHandler
     private queryBus: QueryBus,
     private eventBus: EventBus,
     private client: StabilityAiClient,
+    private cloudinary: CloudinaryClient,
   ) {}
 
   async execute({ command }: UploadStoryImageCommand) {
     try {
-      const { id } = command;
-      console.log(id);
+      const { id, base64 } = command;
+
+      console.log(command);
     } catch (e) {
       console.log(e);
     }

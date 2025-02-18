@@ -7,9 +7,9 @@ import {
 import { StabilityAiClient } from '@services/stabilityai';
 
 import {
-  AddStatusToStoryLogQuery,
+  UpdateStoryStatusQuery,
   StoryStatusLog,
-} from '../../queries/addStatusToStoryLog';
+} from '../../queries/updateStoryStatus';
 import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
 
 import { GenStoryImageCommand } from './genStoryImage.command';
@@ -29,9 +29,9 @@ export class GenStoryImageHandler
       const { id, imagePrompt } = command;
 
       await this.queryBus.execute(
-        new AddStatusToStoryLogQuery({
+        new UpdateStoryStatusQuery({
           id,
-          statusLog: [StoryStatusLog.ImageInProgress],
+          log: StoryStatusLog.ImageInProgress,
         }),
       );
 

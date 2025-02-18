@@ -6,7 +6,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ImageTransformationQuery } from '@common/dto';
-import { CloudinaryService } from '@services/cloudinary';
+import { CloudinaryClient } from '@services/cloudinary';
 import { get } from 'lodash';
 
 import { GetBootstrapService } from './getBootstrap.service';
@@ -17,7 +17,7 @@ import { BootstrapQuery, BootstrapResponse } from './getBootstrap.dto';
 export class GetBootstrapController {
   public constructor(
     private bootstrap: GetBootstrapService,
-    private cloudinary: CloudinaryService,
+    private cloudinary: CloudinaryClient,
   ) {}
 
   @Get()
@@ -46,7 +46,7 @@ export class GetBootstrapController {
 
     const characters = initialCharacters.map(({ image, ...rest }) => ({
       ...rest,
-      image: this.cloudinary.image(
+      image: this.cloudinary.image.url(
         get(image, ['_meta', 'public_id']),
         transformation,
       ),
@@ -54,7 +54,7 @@ export class GetBootstrapController {
 
     const placeOfEvents = initialPlaceOfEvents.map(({ image, ...rest }) => ({
       ...rest,
-      image: this.cloudinary.image(
+      image: this.cloudinary.image.url(
         get(image, ['_meta', 'public_id']),
         transformation,
       ),

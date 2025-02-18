@@ -8,9 +8,9 @@ import { OnepAiClient } from '@services/openai';
 import { get } from 'lodash';
 
 import {
-  AddStatusToStoryLogQuery,
+  UpdateStoryStatusQuery,
   StoryStatusLog,
-} from '../../queries/addStatusToStoryLog';
+} from '../../queries/updateStoryStatus';
 import { UpdateStoryQuery } from '../../queries/updateStory';
 import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
 
@@ -30,9 +30,9 @@ export class GenStoryContentHandler
     const { id } = command;
 
     const { contentPrompt } = await this.queryBus.execute(
-      new AddStatusToStoryLogQuery({
+      new UpdateStoryStatusQuery({
         id,
-        statusLog: [StoryStatusLog.ContentInProgress],
+        log: StoryStatusLog.ContentInProgress,
       }),
     );
 

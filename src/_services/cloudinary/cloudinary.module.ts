@@ -2,11 +2,12 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { v2 } from 'cloudinary';
 
 import { CloudinaryConfig } from './cloudinary.types';
-import { CloudinaryService } from './services/cloudinary';
+import { CloudinaryImageService } from './services/image';
+import { CloudinaryClient } from './services/client';
 
 @Module({
-  providers: [CloudinaryService],
-  exports: [CloudinaryService],
+  providers: [CloudinaryImageService, CloudinaryClient],
+  exports: [CloudinaryClient],
 })
 export class CloudinaryModule {
   static forRoot({
