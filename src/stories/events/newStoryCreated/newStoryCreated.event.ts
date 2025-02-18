@@ -1,7 +1,7 @@
-interface NewStoryCreatedEventParams {
+interface NewStoryCreatedEventType {
   id: string;
 }
 
 export class NewStoryCreatedEvent {
-  public constructor(public readonly story: NewStoryCreatedEventParams) {}
+  public constructor(public readonly event: NewStoryCreatedEventType) {}
 }

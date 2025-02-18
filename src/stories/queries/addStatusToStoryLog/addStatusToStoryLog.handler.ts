@@ -10,7 +10,7 @@ export class AddStatusToStoryLogHandler
 {
   constructor(private prisma: PrismaService) {}
 
-  async execute({ story: data }: AddStatusToStoryLogQuery) {
+  async execute({ query: data }: AddStatusToStoryLogQuery) {
     const { id, statusLog: update } = data;
 
     const { statusLog } = await this.prisma.story.findUnique({

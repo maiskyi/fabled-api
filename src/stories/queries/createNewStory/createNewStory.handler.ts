@@ -10,7 +10,7 @@ export class CreateNewStoryHandler
 {
   constructor(private prisma: PrismaService) {}
 
-  async execute({ story: data }: CreateNewStoryQuery) {
+  async execute({ query: data }: CreateNewStoryQuery) {
     const promptRequest = this.prisma.prompt.findUnique({
       where: { id: data.promptId },
       select: { message: true, textPrompt: true },

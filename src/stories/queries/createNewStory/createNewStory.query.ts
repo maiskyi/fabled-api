@@ -5,7 +5,7 @@ export interface CreateNewStoryResult {
   id: string;
 }
 
-interface CreateNewStoryRequest {
+interface CreateNewStoryQueryType {
   readonly characterId?: string;
   readonly moralLessonId: string;
   readonly placeOfEventId: string;
@@ -19,7 +19,7 @@ interface CreateNewStoryRequest {
 }
 
 export class CreateNewStoryQuery extends Query<CreateNewStoryResult> {
-  public constructor(public readonly story: CreateNewStoryRequest) {
+  public constructor(public readonly query: CreateNewStoryQueryType) {
     super();
   }
 }

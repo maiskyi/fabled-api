@@ -4,6 +4,8 @@ import { map, merge, Observable, tap } from 'rxjs';
 
 import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 import { GenStoryContentCommand } from '../../commands/genStoryContent';
+import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
+import { GenStoryImageCommand } from '../../commands/genStoryImage';
 
 @Injectable()
 export class GenerateStorySaga {
@@ -17,18 +19,19 @@ export class GenerateStorySaga {
       events$.pipe(
         ofType(NewStoryCreatedEvent),
         map(
-          (event: NewStoryCreatedEvent) =>
-            new GenStoryContentCommand(event.story),
+          ({ event }: NewStoryCreatedEvent) =>
+            new GenStoryContentCommand(event),
         ),
         tap(() => this.logger.log('Generating story content...')),
       ),
-      // events$.pipe(
-      //   filter((event) => event instanceof PaymentFailedEvent),
-      //   map(
-      //     (event: PaymentFailedEvent) =>
-      //       new NotifyCustomerCommand(event.orderId),
-      //   ),
-      // ),
+      events$.pipe(
+        ofType(StoryContentGeneratedEvent),
+        map(
+          ({ event }: StoryContentGeneratedEvent) =>
+            new GenStoryImageCommand(event),
+        ),
+        tap(() => this.logger.log(`Generating story image...`)),
+      ),
     );
   }
 }

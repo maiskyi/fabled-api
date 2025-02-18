@@ -26,10 +26,8 @@ export class GenStoryContentHandler
     private eventBus: EventBus,
   ) {}
 
-  async execute(command: GenStoryContentCommand) {
-    const {
-      story: { id },
-    } = command;
+  async execute({ command }: GenStoryContentCommand) {
+    const { id } = command;
 
     const { contentPrompt } = await this.queryBus.execute(
       new AddStatusToStoryLogQuery({

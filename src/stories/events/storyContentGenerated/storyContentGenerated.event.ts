@@ -1,4 +1,4 @@
-interface StoryContentGeneratedParams {
+interface StoryContentGeneratedType {
   id: string;
   title: string;
   content: string;
@@ -6,5 +6,5 @@ interface StoryContentGeneratedParams {
 }
 
 export class StoryContentGeneratedEvent {
-  public constructor(public readonly story: StoryContentGeneratedParams) {}
+  public constructor(public readonly event: StoryContentGeneratedType) {}
 }

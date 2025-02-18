@@ -6,7 +6,5 @@ import { StoryContentGeneratedEvent } from './storyContentGenerated.event';
 export class StoryContentGeneratedHandler
   implements IEventHandler<StoryContentGeneratedEvent>
 {
-  public handle(_event: StoryContentGeneratedEvent) {
-    console.log(_event);
-  }
+  public handle(_event: StoryContentGeneratedEvent) {}
 }

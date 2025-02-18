@@ -24,6 +24,7 @@ import { AddStatusToStoryLogHandler } from './queries/addStatusToStoryLog';
 import { UpdateStoryHandler } from './queries/updateStory';
 // Commands
 import { GenStoryContentHandler } from './commands/genStoryContent';
+import { GenStoryImageHandler } from './commands/genStoryImage';
 
 @Module({
   providers: [
@@ -33,7 +34,6 @@ import { GenStoryContentHandler } from './commands/genStoryContent';
     CreateStoryGuard,
     CreateStoryService,
     CreateStoryInterceptor,
-    GenStoryContentHandler,
     GenerateStorySaga,
     // Queries
     CreateNewStoryHandler,
@@ -42,6 +42,9 @@ import { GenStoryContentHandler } from './commands/genStoryContent';
     // Events
     StoryContentGeneratedHandler,
     NewStoryCreatedHandler,
+    // Commands
+    GenStoryContentHandler,
+    GenStoryImageHandler,
   ],
   controllers: [
     GetStoriesController,

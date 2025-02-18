@@ -3,18 +3,18 @@ import { JsonValue } from '@prisma/client/runtime/library';
 
 import { StoryStatusLog } from './addStatusToStoryLog.types';
 
-interface AddStatusToStoryLogRequest {
+interface AddStatusToStoryLogQueryType {
   id: string;
   statusLog: StoryStatusLog[];
 }
 
-interface AddStatusToStoryLogResponse {
+interface AddStatusToStoryLogQueryResponse {
   statusLog: JsonValue;
   contentPrompt: string;
 }
 
-export class AddStatusToStoryLogQuery extends Query<AddStatusToStoryLogResponse> {
-  public constructor(public readonly story: AddStatusToStoryLogRequest) {
+export class AddStatusToStoryLogQuery extends Query<AddStatusToStoryLogQueryResponse> {
+  public constructor(public readonly query: AddStatusToStoryLogQueryType) {
     super();
   }
 }
