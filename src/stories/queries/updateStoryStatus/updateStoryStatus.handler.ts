@@ -10,8 +10,8 @@ export class UpdateStoryStatusHandler
 {
   constructor(private prisma: PrismaService) {}
 
-  async execute({ query: data }: UpdateStoryStatusQuery) {
-    const { id, log } = data;
+  async execute({ query }: UpdateStoryStatusQuery) {
+    const { id, log, status } = query;
 
     const { statusLog } = await this.prisma.story.findUnique({
       where: { id },
@@ -21,6 +21,7 @@ export class UpdateStoryStatusHandler
     return this.prisma.story.update({
       where: { id },
       data: {
+        status,
         statusLog: [...castArray(statusLog), log],
       },
       select: { statusLog: true, contentPrompt: true },

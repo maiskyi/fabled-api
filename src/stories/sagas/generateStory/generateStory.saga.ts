@@ -6,6 +6,7 @@ import { map, merge, Observable, tap } from 'rxjs';
 import { GenStoryContentCommand } from '../../commands/genStoryContent';
 import { GenStoryImageCommand } from '../../commands/genStoryImage';
 import { UploadStoryImageCommand } from '../../commands/uploadStoryImage';
+import { MarkStoryCompletedCommand } from '../../commands/markStoryCompleted';
 // Events
 import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
@@ -48,8 +49,8 @@ export class GenerateStorySaga {
       events$.pipe(
         ofType(StoryImageUploadedEvent),
         map(
-          ({ event }: StoryImageGeneratedEvent) =>
-            new UploadStoryImageCommand(event),
+          ({ event }: StoryImageUploadedEvent) =>
+            new MarkStoryCompletedCommand(event),
         ),
         tap(() => this.logger.log(`Story image uploaded...`)),
       ),

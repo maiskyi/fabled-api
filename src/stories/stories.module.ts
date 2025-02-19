@@ -28,6 +28,7 @@ import { UpdateStoryHandler } from './queries/updateStory';
 import { GenStoryContentHandler } from './commands/genStoryContent';
 import { GenStoryImageHandler } from './commands/genStoryImage';
 import { UploadStoryImageHandler } from './commands/uploadStoryImage';
+import { MarkStoryCompletedHandler } from './commands/markStoryCompleted';
 
 @Module({
   providers: [
@@ -51,6 +52,7 @@ import { UploadStoryImageHandler } from './commands/uploadStoryImage';
     GenStoryContentHandler,
     GenStoryImageHandler,
     UploadStoryImageHandler,
+    MarkStoryCompletedHandler,
   ],
   controllers: [
     GetStoriesController,
