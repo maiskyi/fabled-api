@@ -5,11 +5,9 @@ import {
   QueryBus,
 } from '@nestjs/cqrs';
 import { StabilityAiClient } from '@services/stabilityai';
+import { StoryStatusLog } from '@common/dto';
 
-import {
-  UpdateStoryStatusQuery,
-  StoryStatusLog,
-} from '../../queries/updateStoryStatus';
+import { UpdateStoryStatusQuery } from '../../queries/updateStoryStatus';
 import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
 
 import { GenStoryImageCommand } from './genStoryImage.command';

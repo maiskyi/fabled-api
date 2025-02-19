@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import {
   CommandHandler,
   EventBus,
@@ -5,12 +6,9 @@ import {
   QueryBus,
 } from '@nestjs/cqrs';
 import { OnepAiClient } from '@services/openai';
-import { get } from 'lodash';
+import { StoryStatusLog } from '@common/dto';
 
-import {
-  UpdateStoryStatusQuery,
-  StoryStatusLog,
-} from '../../queries/updateStoryStatus';
+import { UpdateStoryStatusQuery } from '../../queries/updateStoryStatus';
 import { UpdateStoryQuery } from '../../queries/updateStory';
 import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
 

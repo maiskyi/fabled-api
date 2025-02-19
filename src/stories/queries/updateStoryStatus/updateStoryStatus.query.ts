@@ -1,7 +1,6 @@
+import { StoryStatusLog } from '@common/dto';
 import { Query } from '@nestjs/cqrs';
 import { JsonValue } from '@prisma/client/runtime/library';
-
-import { StoryStatusLog } from './updateStoryStatus.types';
 
 interface UpdateStoryStatusQueryType {
   id: string;
