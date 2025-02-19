@@ -9,6 +9,7 @@ import { StoryStatusLog } from '@common/dto';
 
 import { UpdateStoryStatusQuery } from '../../queries/updateStoryStatus';
 import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
+import { StoryGenerationFailedEvent } from '../../events/storyGenerationFailed';
 
 import { GenStoryImageCommand } from './genStoryImage.command';
 
@@ -53,8 +54,16 @@ export class GenStoryImageHandler
           ...image,
         }),
       );
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      const { id } = command;
+
+      this.eventBus.publish(
+        new StoryGenerationFailedEvent({
+          id,
+          error: StoryStatusLog.StoryImageGenerationFailed,
+          message: error?.message,
+        }),
+      );
     }
   }
 }

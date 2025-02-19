@@ -7,9 +7,11 @@ import {
   QueryBus,
 } from '@nestjs/cqrs';
 import { CloudinaryClient } from '@services/cloudinary';
+import { StoryStatusLog } from '@common/dto';
 
 import { UpdateStoryQuery } from '../../queries/updateStory';
 import { StoryImageUploadedEvent } from '../../events/storyImageUploaded';
+import { StoryGenerationFailedEvent } from '../../events/storyGenerationFailed';
 
 import { UploadStoryImageCommand } from './uploadStoryImage.command';
 
@@ -43,8 +45,16 @@ export class UploadStoryImageHandler
       );
 
       this.eventBus.publish(new StoryImageUploadedEvent({ id }));
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      const { id } = command;
+
+      this.eventBus.publish(
+        new StoryGenerationFailedEvent({
+          id,
+          error: StoryStatusLog.StoryImageUploadFailed,
+          message: error?.message,
+        }),
+      );
     }
   }
 }

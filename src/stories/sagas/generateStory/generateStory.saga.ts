@@ -7,11 +7,13 @@ import { GenStoryContentCommand } from '../../commands/genStoryContent';
 import { GenStoryImageCommand } from '../../commands/genStoryImage';
 import { UploadStoryImageCommand } from '../../commands/uploadStoryImage';
 import { MarkStoryCompletedCommand } from '../../commands/markStoryCompleted';
+import { MarkStoryFailedCommand } from '../../commands/markStoryFailed';
 // Events
 import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
 import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
 import { StoryImageUploadedEvent } from '../../events/storyImageUploaded';
+import { StoryGenerationFailedEvent } from '../../events/storyGenerationFailed';
 
 @Injectable()
 export class GenerateStorySaga {
@@ -53,6 +55,14 @@ export class GenerateStorySaga {
             new MarkStoryCompletedCommand(event),
         ),
         tap(() => this.logger.log(`Story image uploaded...`)),
+      ),
+      events$.pipe(
+        ofType(StoryGenerationFailedEvent),
+        map(
+          ({ event }: StoryGenerationFailedEvent) =>
+            new MarkStoryFailedCommand(event),
+        ),
+        tap(() => this.logger.log(`Story generation failed...`)),
       ),
     );
   }
