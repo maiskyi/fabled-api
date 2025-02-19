@@ -2,12 +2,15 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ICommand, ofType, Saga } from '@nestjs/cqrs';
 import { map, merge, Observable, tap } from 'rxjs';
 
-import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
+// Commands
 import { GenStoryContentCommand } from '../../commands/genStoryContent';
-import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
 import { GenStoryImageCommand } from '../../commands/genStoryImage';
-import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
 import { UploadStoryImageCommand } from '../../commands/uploadStoryImage';
+// Events
+import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
+import { StoryContentGeneratedEvent } from '../../events/storyContentGenerated';
+import { StoryImageGeneratedEvent } from '../../events/storyImageGenerated';
+import { StoryImageUploadedEvent } from '../../events/storyImageUploaded';
 
 @Injectable()
 export class GenerateStorySaga {
@@ -41,6 +44,14 @@ export class GenerateStorySaga {
             new UploadStoryImageCommand(event),
         ),
         tap(() => this.logger.log(`Uploading story image...`)),
+      ),
+      events$.pipe(
+        ofType(StoryImageUploadedEvent),
+        map(
+          ({ event }: StoryImageGeneratedEvent) =>
+            new UploadStoryImageCommand(event),
+        ),
+        tap(() => this.logger.log(`Story image uploaded...`)),
       ),
     );
   }

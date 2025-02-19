@@ -19,6 +19,7 @@ import { GenerateStorySaga } from './sagas/generateStory';
 import { NewStoryCreatedHandler } from './events/newStoryCreated';
 import { StoryContentGeneratedHandler } from './events/storyContentGenerated';
 import { StoryImageGeneratedHandler } from './events/storyImageGenerated';
+import { StoryImageUploadedHandler } from './events/storyImageUploaded';
 // Queries
 import { CreateNewStoryHandler } from './queries/createNewStory';
 import { UpdateStoryStatusHandler } from './queries/updateStoryStatus';
@@ -45,6 +46,7 @@ import { UploadStoryImageHandler } from './commands/uploadStoryImage';
     StoryContentGeneratedHandler,
     NewStoryCreatedHandler,
     StoryImageGeneratedHandler,
+    StoryImageUploadedHandler,
     // Commands
     GenStoryContentHandler,
     GenStoryImageHandler,

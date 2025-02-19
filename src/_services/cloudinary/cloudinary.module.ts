@@ -4,6 +4,7 @@ import { v2 } from 'cloudinary';
 import { CloudinaryConfig } from './cloudinary.types';
 import { CloudinaryImageService } from './services/image';
 import { CloudinaryClient } from './services/client';
+import { ConfigService } from './services/config';
 
 @Module({
   providers: [CloudinaryImageService, CloudinaryClient],
@@ -14,11 +15,18 @@ export class CloudinaryModule {
     apiKey,
     apiSecret,
     cloudName,
+    rootFolder,
   }: CloudinaryConfig): DynamicModule {
     return {
       module: CloudinaryModule,
       global: true,
       providers: [
+        {
+          provide: ConfigService,
+          useValue: new ConfigService({
+            rootFolder,
+          }),
+        },
         {
           provide: 'CLOUDINARY',
           useFactory: () => {

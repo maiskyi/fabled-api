@@ -36,6 +36,7 @@ const serviceAccount = resolve(process.cwd(), './firebase-adminsdk.json');
       apiKey: process.env.CLOUDINARY_API_KEY,
       apiSecret: process.env.CLOUDINARY_API_SECRET,
       cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+      rootFolder: process.env.CLOUDINARY_FOLDER_ROOT,
     }),
     RevenueCatModule.forRoot({
       apiKey: process.env.REVENUECAT_API_KEY,

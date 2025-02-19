@@ -70,11 +70,9 @@ export class GenStoryContentHandler
     await this.queryBus.execute(
       new UpdateStoryQuery({
         id,
-        data: {
-          title,
-          content,
-          imagePrompt: illustration,
-        },
+        title,
+        content,
+        imagePrompt: illustration,
       }),
     );
 

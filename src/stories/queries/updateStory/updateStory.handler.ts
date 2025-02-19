@@ -8,7 +8,7 @@ export class UpdateStoryHandler implements IQueryHandler<UpdateStoryQuery> {
   constructor(private prisma: PrismaService) {}
 
   async execute({ story }: UpdateStoryQuery) {
-    const { id, data } = story;
+    const { id, ...data } = story;
 
     await this.prisma.story.update({
       where: { id },
