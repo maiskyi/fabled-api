@@ -15,6 +15,7 @@ export class GetBootstrapService {
         id: true,
         title: true,
         mp3_filename: true,
+        tags: true,
       },
       where: {
         isPublished: true,
@@ -22,12 +23,20 @@ export class GetBootstrapService {
     });
 
     const lullabiesRequests = findManyLullabies.map(
-      ({ id, title, mp3_filename }) => {
+      ({ id, title, mp3_filename, tags }) => {
         return this.s3
           .getSignedUrl({
             filename: mp3_filename,
           })
-          .then(({ url }) => ({ id, url, title }));
+          .then(({ url }) => ({
+            id,
+            url,
+            title,
+            tags: tags
+              ?.split(',')
+              .map((v) => v.trim())
+              .filter((v) => !!v),
+          }));
       },
     );
 

@@ -100,6 +100,12 @@ export class BootstrapLullabyItem {
     type: String,
   })
   public readonly url: string;
+
+  @ApiProperty({
+    type: String,
+    isArray: true,
+  })
+  public readonly tags: string[];
 }
 
 export class BootstrapResponse {
