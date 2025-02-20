@@ -100,9 +100,8 @@ export class GenStoryImageHandler
         model: 'dall-e-3',
         quality: 'standard',
         response_format: 'b64_json',
+        style: 'vivid',
       });
-
-      console.log(image);
 
       this.eventBus.publish(
         new StoryImageGeneratedEvent({
