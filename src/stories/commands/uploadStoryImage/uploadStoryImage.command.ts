@@ -1,7 +1,7 @@
 import { Command } from '@nestjs/cqrs';
-import { DTO } from '@services/stabilityai';
+import { Image } from 'openai/resources';
 
-interface UploadStoryImageCommandType extends DTO.Image {
+interface UploadStoryImageCommandType extends Image {
   id: string;
 }
 

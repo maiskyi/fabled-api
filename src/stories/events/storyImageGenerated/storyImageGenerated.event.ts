@@ -1,6 +1,6 @@
-import { DTO } from '@services/stabilityai';
+import { Image } from 'openai/resources';
 
-interface StoryImageGeneratedEventType extends DTO.Image {
+interface StoryImageGeneratedEventType extends Image {
   id: string;
 }
 

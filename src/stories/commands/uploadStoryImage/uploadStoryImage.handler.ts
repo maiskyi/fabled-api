@@ -27,10 +27,10 @@ export class UploadStoryImageHandler
 
   async execute({ command }: UploadStoryImageCommand) {
     try {
-      const { id, base64 } = command;
+      const { id, b64_json } = command;
 
       const _meta = await this.cloudinary.image.upload({
-        source: `data:image/jpeg;base64,${base64}`,
+        source: `data:image/jpeg;base64,${b64_json}`,
         folder: 'stories',
       });
 
