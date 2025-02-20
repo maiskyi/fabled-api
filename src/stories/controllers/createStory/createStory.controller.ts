@@ -1,4 +1,10 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -13,19 +19,25 @@ import { AuthGuard, User, UserInfo } from '@services/firebase';
 import { OrGuard } from '@common/guards';
 import { HasActiveSubscription } from '@services/revenue-cat';
 import { HttpExceptionResponse } from '@common/dto';
-import { StoryService } from '@services/keystone';
 import { DeviceId } from '@services/keystone';
+import { EventBus, QueryBus } from '@nestjs/cqrs';
+
+import { CreateNewStoryQuery } from '../../queries/createNewStory';
+import { NewStoryCreatedEvent } from '../../events/newStoryCreated';
 
 import { CreateStoryGuard } from './createStory.guard';
 import { CreateStoryRequest, CreateStoryResponse } from './createStory.dto';
 import { CreateStoryService } from './createStory.service';
+import { CreateStoryInterceptor } from './createStory.interceptor';
 
 @ApiTags('Stories')
 @Controller('stories')
+@UseInterceptors(CreateStoryInterceptor)
 export class CreateStoryController {
   public constructor(
-    private story: StoryService,
     private service: CreateStoryService,
+    private queryBus: QueryBus,
+    private eventBus: EventBus,
   ) {}
 
   @Post()
@@ -78,15 +90,15 @@ export class CreateStoryController {
       return { id };
     }
 
-    const {
-      data: {
-        createStory: { id },
-      },
-    } = await this.story.create({
-      firebaseUserId,
-      deviceId,
-      ...body,
-    });
+    const { id } = await this.queryBus.execute(
+      new CreateNewStoryQuery({
+        firebaseUserId,
+        deviceId,
+        ...body,
+      }),
+    );
+
+    this.eventBus.publish(new NewStoryCreatedEvent({ id }));
 
     return { id };
   }

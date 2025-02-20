@@ -26,3 +26,7 @@ export interface CopyExistingStoryParams {
   story: Story;
   deviceId: string;
 }
+
+export interface GenCannelMessageParams {
+  id: string;
+}
