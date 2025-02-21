@@ -10,16 +10,23 @@ export class CreateNewStoryHandler
 {
   constructor(private prisma: PrismaService) {}
 
+  private async findUniqueCharacter(id?: string) {
+    if (id) {
+      return this.prisma.character.findUnique({
+        where: { id },
+        select: { title: true, description: true },
+      });
+    }
+    return { title: '', description: '' };
+  }
+
   async execute({ query: data }: CreateNewStoryQuery) {
     const promptRequest = this.prisma.prompt.findUnique({
       where: { id: data.promptId },
       select: { message: true, textPrompt: true },
     });
 
-    const characterRequest = this.prisma.character.findUnique({
-      where: { id: data.characterId },
-      select: { title: true, description: true },
-    });
+    const characterRequest = this.findUniqueCharacter(data.characterId);
 
     const moralLessonRequest = this.prisma.moralLesson.findUnique({
       where: { id: data.moralLessonId },
