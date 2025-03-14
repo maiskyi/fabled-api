@@ -10,6 +10,8 @@ import { get } from 'lodash';
 import { CustomerService } from '../../services/customer';
 import { ConfigService } from '../../services/config';
 
+import { ACTIVE_SUBSCRIPTION_STATUSES } from './has-active-subscription.const';
+
 @Injectable()
 export class HasActiveSubscription implements CanActivate {
   public constructor(
@@ -39,7 +41,9 @@ export class HasActiveSubscription implements CanActivate {
         projectId: this.config.projectId,
       });
 
-      return subscriptions.some(({ status }) => status === 'active');
+      return subscriptions.some(({ status }) =>
+        ACTIVE_SUBSCRIPTION_STATUSES.includes(status),
+      );
     } catch (error) {
       throw new UnauthorizedException(error);
     }
